@@ -17,7 +17,7 @@ let game = new Phaser.Game(config);
 // set UI sizes
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
-let skaterSpeed = 2;
+let gameSpeed = 2;
 
 // reserve keyboard bindings
 let keySPACE;
