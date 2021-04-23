@@ -13,6 +13,15 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        // add spikes
+        this.spike01 = new Spike(this, game.config.width + borderUISize * 6, 
+            borderUISize * 4, 'spikes', 0, 30).setOrigin(0, 0);
+        // add railings (short and long)
+        this.shortRailing01 = new Spike(this, game.config.width + borderUISize * 3, 
+            borderUISize * 4, 'railing_short', 0, 30).setOrigin(0, 0);
+        this.shortRailing01 = new Spike(this, game.config.width + borderUISize * 3, 
+            borderUISize * 4, 'railing_long', 0, 30).setOrigin(0, 0);
+
         // define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 

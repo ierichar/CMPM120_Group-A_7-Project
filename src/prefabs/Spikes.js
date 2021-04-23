@@ -6,4 +6,18 @@ class Spike extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         this.moveSpeed = gameSpeed;
     }
+
+    update() {
+        // move spikes left
+        this.x -= this.moveSpeed;
+        // wrap around from left to right edge
+        if (this.x <= 0 - this.width) {
+            this.reset();
+        }
+    }
+
+    // position reset
+    reset() {
+        this.x = game.config.width;
+    }
 }
