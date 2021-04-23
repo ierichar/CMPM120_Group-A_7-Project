@@ -18,6 +18,15 @@ class Play extends Phaser.Scene {
 
         // initialize score
         this.playerScore = 0;
+
+        // initialize skater (scene, x, y, sprite, frame)
+        this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, "placeholder_char" ).setOrigin(0.5, 0);
+
+        //game over Flag
+        //this.gameOver = false;
+
+        //give world physics
+        this.physics.world.gravity.y = 2600;
     }
 
     update() {
