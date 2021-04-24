@@ -35,7 +35,7 @@ class Play extends Phaser.Scene {
         //this.gameOver = false;
 
         //give world physics
-        this.physics.world.gravity.y = 2600;
+        //this.physics.world.gravity.y = 2600;
     }
 
     update() {

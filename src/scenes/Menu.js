@@ -22,6 +22,7 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
 
+
         // show menu text
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - 
             borderPadding, 'S K A T E R', menuConfig).setOrigin(0.5);
@@ -39,7 +40,6 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyP)) {
             // start game
             this.scene.start('playScene');
-            console.log("menu scene lol");
         }
     }
 }

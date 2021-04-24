@@ -9,7 +9,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 640,
     height: 480,
-    scene: [ Menu, Play ]
+    scene: [Menu, Play ]
 }
 
 let game = new Phaser.Game(config);
@@ -21,3 +21,4 @@ let gameSpeed = 2;
 
 // reserve keyboard bindings
 let keySPACE;
+let keyP;
