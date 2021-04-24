@@ -57,15 +57,24 @@ class Play extends Phaser.Scene {
             this.gameOver = true;
             }, null, this);
             
+            //initiate clock
+            this.clock = this.clock.getElapsed();
+            
 
         //give world physics
         //this.physics.world.gravity.y = 2600;
+
+        //clock 
+        this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
     }
 
     update() {
         
-        this.gameOver = true;
+        //this.gameOver = true;
         
+        //this.clockRight.text = this.game.time.getElapsedSeconds();
+
+        this.clockRight.text = (this.clock/1000);
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyP)) {
             this.scene.start("menuScene");
