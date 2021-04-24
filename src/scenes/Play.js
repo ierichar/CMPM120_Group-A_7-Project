@@ -13,6 +13,22 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+        keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
+        let playConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
         // add spikes
         this.spike01 = new Spike(this, game.config.width + borderUISize * 6, 
             borderUISize * 4, 'spikes', 0, 30).setOrigin(0, 0);
@@ -32,7 +48,15 @@ class Play extends Phaser.Scene {
         this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, "placeholder_char" ).setOrigin(0.5, 0);
 
         //game over Flag
-        //this.gameOver = false;
+        this.gameOver = false;
+
+              //bring up game over
+        this.clock = this.time.delayedCall(3000, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', playConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (P) for Menu', playConfig).setOrigin(0.5);
+            this.gameOver = true;
+            }, null, this);
+            
 
         //give world physics
         //this.physics.world.gravity.y = 2600;
@@ -40,5 +64,11 @@ class Play extends Phaser.Scene {
 
     update() {
         
+        this.gameOver = true;
+        
+
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyP)) {
+            this.scene.start("menuScene");
+        }
     }
 }
