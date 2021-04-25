@@ -17,7 +17,10 @@ class Play extends Phaser.Scene {
 
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
-        //this.physics.add.sprite(borderPadding * 3, game.config.height - borderUISize, game.config.width, borderUISize * 1.5, 'dirt').setOrigin(0,0);
+        let gameFloor = this.physics.add.sprite(borderPadding * 3, game.config.height - borderUISize, 'platformer_atlas', 'floor').setOrigin(0,0);
+        gameFloor.body.immovable = true;
+        gameFloor.body.allowGravity = false;
+
 
 
         let playConfig = {
@@ -67,6 +70,7 @@ class Play extends Phaser.Scene {
 
         //give world physics
         this.physics.world.gravity.y = 2600;
+        this.JUMP_VELOCITY = -1000;
 
         //clock 
         this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
@@ -77,6 +81,14 @@ class Play extends Phaser.Scene {
         //this.gameOver = true;
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
+
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
+        }
+
+        if(this.playerOne.y > game.config.height-borderPadding){
+            this.playerOne.y = game.config.height - borderPadding;
+        }
 
         this.clockRight.text = (this.clock/1000);
 
