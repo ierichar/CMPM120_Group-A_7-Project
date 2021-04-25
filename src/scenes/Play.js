@@ -10,11 +10,15 @@ class Play extends Phaser.Scene {
         this.load.image('railing_short', './assets/Railing.png');
         this.load.image('railing_long,', './assets/Railing2.png');
         this.load.image('spikes', './assets/Spikes.png');
+        this.load.image('dirt', './assets/dirt.jpg');
     }
 
     create() {
 
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
+        //this.physics.add.sprite(borderPadding * 3, game.config.height - borderUISize, game.config.width, borderUISize * 1.5, 'dirt').setOrigin(0,0);
+
 
         let playConfig = {
             fontFamily: 'Courier',
@@ -45,7 +49,7 @@ class Play extends Phaser.Scene {
         this.playerScore = 0;
 
         // initialize skater (scene, x, y, sprite, frame)
-        this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, "placeholder_char" ).setOrigin(0.5, 0);
+        this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, 'placeholder_char').setOrigin(0.5, 0);
 
         //game over Flag
         this.gameOver = false;
@@ -62,7 +66,7 @@ class Play extends Phaser.Scene {
             
 
         //give world physics
-        //this.physics.world.gravity.y = 2600;
+        this.physics.world.gravity.y = 2600;
 
         //clock 
         this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
@@ -78,6 +82,10 @@ class Play extends Phaser.Scene {
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyP)) {
             this.scene.start("menuScene");
+        }
+
+        if(!this.gameOver){
+            this.playerOne.update();
         }
     }
 }
