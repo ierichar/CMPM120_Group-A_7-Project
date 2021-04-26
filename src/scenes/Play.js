@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         // load images/tile sprites
         this.load.image('floor', './assets/Floor.png');
         this.load.image('placeholder_char', './assets/Placeholder_Character.png');
+        this.load.image('starfield', './assets/starfield.png');
         this.load.image('railing_short', './assets/Railing.png');
         this.load.image('railing_long,', './assets/Railing2.png');
         this.load.image('spikes', './assets/Spikes.png');
@@ -16,6 +17,8 @@ class Play extends Phaser.Scene {
     create() {
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
+        // tiled space 
+        this.starfield = this.add.tileSprite(0, 0, 960, 640, 'starfield').setOrigin(0, 0);
 
         //adding tiled floor! (curtesy of Nathan Altice Movemnet Studies Repository)
         this.gameFloor =  this.add.group();
@@ -91,6 +94,10 @@ class Play extends Phaser.Scene {
         //this.gameOver = true;
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
+
+
+        // starfield movement
+        this.starfield.tilePositionX -= 3;  // update tile sprite
 
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
