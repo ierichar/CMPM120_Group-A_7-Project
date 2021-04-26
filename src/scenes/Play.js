@@ -52,10 +52,10 @@ class Play extends Phaser.Scene {
         }
 
         // add spikes
-        this.spike01 = new Spike(this, 500, 580, 'spikes', 0, 30).setOrigin(0, 0);
+        this.spike01 = new Spike(this, 500, 595, 'spikes', 0, 30).setOrigin(0, 0);
         // add railings (short and long)
-        this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setOrigin(0, 0);
-        this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setOrigin(0, 0);
+        this.shortRailing01 = new Railing(this, 400, 590, 'railing_short', 0, 30).setOrigin(0, 0);
+        this.longRailing01 = new Railing(this, 600, 590, 'railing_long', 0, 30).setOrigin(0, 0);
         // add physics between player and spikes, and player and railing
         this.longRailing01.body.immovable = true;
         this.shortRailing01.body.immovable = true;
@@ -78,7 +78,7 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
               //bring up game over
-        this.clock = this.time.delayedCall(3000, () => {
+        this.clock = this.time.delayedCall(30000, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', playConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (P) for Menu', playConfig).setOrigin(0.5);
             this.gameOver = true;
@@ -122,6 +122,9 @@ class Play extends Phaser.Scene {
 
         if(!this.gameOver){
             this.playerOne.update();
+            this.spike01.update();
+            this.shortRailing01.update();
+            this.longRailing01.update();
         }
     }
 }
