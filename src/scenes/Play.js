@@ -14,14 +14,26 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
-        let gameFloor = this.physics.add.sprite(borderPadding * 3, game.config.height - borderUISize, 'platformer_atlas', 'floor').setOrigin(0,0);
-        gameFloor.body.immovable = true;
-        gameFloor.body.allowGravity = false;
 
+        //adding tiled floor! (curtesy of Nathan Altice Movemnet Studies Repository)
+        this.gameFloor =  this.add.group();
+        for(let i = 0; i < game.config.width; i += tileSize) {
+            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'floor', 0).setOrigin(0,0);
+            groundTile.body.immovable = true;
+            groundTile.body.allowGravity = false;
+            this.gameFloor.add(groundTile);
+        }
 
+        // initialize skater (scene, x, y, sprite, frame)
+        //this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, 'placeholder_char').setOrigin(0.5, 0);
+
+        this.playerOne = this.physics.add.sprite(50, 500, 'placeholder_char', 0);
+        this.playerOne.setCollideWorldBounds(true);
+
+        //physics collider for alien to ground 
+        this.physics.add.collider(this.playerOne, this.gameFloor);
 
         let playConfig = {
             fontFamily: 'Courier',
@@ -51,8 +63,6 @@ class Play extends Phaser.Scene {
         // initialize score
         this.playerScore = 0;
 
-        // initialize skater (scene, x, y, sprite, frame)
-        this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, 'placeholder_char').setOrigin(0.5, 0);
 
         //game over Flag
         this.gameOver = false;

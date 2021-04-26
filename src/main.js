@@ -7,8 +7,11 @@
 
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
-    height: 480,
+    width: 960,
+    height: 640,
+    scale: {
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -20,6 +23,9 @@ let config = {
 }
 
 let game = new Phaser.Game(config);
+
+//Variables
+const tileSize = 35;
 
 // set UI sizes
 let borderUISize = game.config.height / 15;
