@@ -95,15 +95,11 @@ class Play extends Phaser.Scene {
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
 
-<<<<<<< HEAD
 
         // starfield movement
         this.starfield.tilePositionX -= 3;  // update tile sprite
-
-        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-=======
+        
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
->>>>>>> a57d9c54f648f6552dc47f439e9ae6ff8c02de4a
             this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
         }
 
