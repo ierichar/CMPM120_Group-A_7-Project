@@ -9,7 +9,7 @@ class Play extends Phaser.Scene {
         this.load.image('placeholder_char', './assets/Placeholder_Character.png');
         this.load.image('starfield', './assets/starfield.png');
         this.load.image('railing_short', './assets/Railing.png');
-        this.load.image('railing_long,', './assets/Railing2.png');
+        this.load.image('railing_long', './assets/Railing2.png');
         this.load.image('spikes', './assets/Spikes.png');
         this.load.image('dirt', './assets/dirt.jpg');
     }
@@ -52,13 +52,20 @@ class Play extends Phaser.Scene {
         }
 
         // add spikes
-        this.spike01 = new Spike(this, game.config.width + borderUISize * 6, 
-            borderUISize * 4, 'spikes', 0, 30).setOrigin(0, 0);
+        this.spike01 = new Spike(this, 500, 580, 'spikes', 0, 30).setOrigin(0, 0);
         // add railings (short and long)
-        this.shortRailing01 = new Spike(this, game.config.width + borderUISize * 3, 
-            borderUISize * 4, 'railing_short', 0, 30).setOrigin(0, 0);
-        this.shortRailing01 = new Spike(this, game.config.width + borderUISize * 3, 
-            borderUISize * 4, 'railing_long', 0, 30).setOrigin(0, 0);
+        this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setOrigin(0, 0);
+        this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setOrigin(0, 0);
+        // add physics between player and spikes, and player and railing
+        this.longRailing01.body.immovable = true;
+        this.shortRailing01.body.immovable = true;
+        this.spike01.body.immovable = true;
+        this.longRailing01.body.allowGravity = false;
+        this.shortRailing01.body.allowGravity = false;
+        this.spike01.body.allowGravity = false;
+        this.physics.add.collider(this.playerOne, this.spike01);
+        this.physics.add.collider(this.playerOne, this.shortRailing01);
+        this.physics.add.collider(this.playerOne, this.longRailing01);
 
         // define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);

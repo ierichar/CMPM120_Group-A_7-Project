@@ -4,7 +4,8 @@ class Railing extends Phaser.GameObjects.Sprite {
 
         // add object to the existing scene
         scene.add.existing(this);
-        this.moveSpeed = gameSpeed;
+        scene.physics.add.existing(this);
+        this.moveSpeed = 2;
     }
 
     update() {
