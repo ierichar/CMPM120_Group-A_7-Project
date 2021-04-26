@@ -30,7 +30,7 @@ class Play extends Phaser.Scene {
         }
 
         // initialize skater (scene, x, y, sprite, frame)
-        //this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, 'placeholder_char').setOrigin(0.5, 0);
+        // this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, 'placeholder_char').setOrigin(0.5, 0);
 
         this.playerOne = this.physics.add.sprite(50, 500, 'placeholder_char', 0);
         this.playerOne.setCollideWorldBounds(true);
@@ -95,15 +95,19 @@ class Play extends Phaser.Scene {
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
 
+<<<<<<< HEAD
 
         // starfield movement
         this.starfield.tilePositionX -= 3;  // update tile sprite
 
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+=======
+        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+>>>>>>> a57d9c54f648f6552dc47f439e9ae6ff8c02de4a
             this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
         }
 
-        if(this.playerOne.y > game.config.height-borderPadding){
+        if (this.playerOne.y > game.config.height-borderPadding) {
             this.playerOne.y = game.config.height - borderPadding;
         }
 

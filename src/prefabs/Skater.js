@@ -8,10 +8,9 @@ class Skater extends Phaser.Physics.Arcade.Sprite {
 
     }
 
-    update(){
-        if(keySPACE.isDown && this.x >= borderUISize + this.width){
+    update() {
+        if (keySPACE.isDown && this.x >= borderUISize + this.width) {
             this.x -= 1;
-    }
-
+        }
     }
 }
