@@ -97,8 +97,8 @@ class Play extends Phaser.Scene {
 
 
         // starfield movement
-        this.starfield.tilePositionX -= 3;  // update tile sprite
-        
+        this.starfield.tilePositionX += 3;  // update tile sprite
+
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
         }
