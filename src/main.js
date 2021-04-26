@@ -19,7 +19,7 @@ let config = {
             y:0
         }
     },
-    scene: [ Menu, Play ]
+    scene: [ Load, Menu, Play, GameOver ]
 }
 
 let game = new Phaser.Game(config);
@@ -35,3 +35,4 @@ let gameSpeed = 2;
 // reserve keyboard bindings
 let keySPACE;
 let keyP;
+let keyM;

@@ -32,7 +32,6 @@ class Menu extends Phaser.Scene {
             borderPadding, 'Press (p) to play!', menuConfig).setOrigin(0.5);
 
         // define keys
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
     }
 

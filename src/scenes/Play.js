@@ -3,19 +3,7 @@ class Play extends Phaser.Scene {
         super("playScene");
     }
 
-    preload() {
-        // load images/tile sprites
-        this.load.image('floor', './assets/Floor.png');
-        this.load.image('placeholder_char', './assets/Placeholder_Character.png');
-        this.load.image('starfield', './assets/starfield.png');
-        this.load.image('railing_short', './assets/Railing.png');
-        this.load.image('railing_long', './assets/Railing2.png');
-        this.load.image('spikes', './assets/Spikes.png');
-        this.load.image('dirt', './assets/dirt.jpg');
-    }
-
     create() {
-        keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
         // tiled space 
         this.starfield = this.add.tileSprite(0, 0, 960, 640, 'starfield').setOrigin(0, 0);
@@ -78,9 +66,7 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
               //bring up game over
-        this.clock = this.time.delayedCall(30000, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', playConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (P) for Menu', playConfig).setOrigin(0.5);
+        this.clock = this.time.delayedCall(10000, () => {
             this.gameOver = true;
             }, null, this);
             
@@ -114,10 +100,10 @@ class Play extends Phaser.Scene {
             this.playerOne.y = game.config.height - borderPadding;
         }
 
-        this.clockRight.text = (this.clock/1000);
+        // this.clockRight.text = (this.clock/1000);
 
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyP)) {
-            this.scene.start("menuScene");
+        if (this.gameOver) {
+            this.scene.start("gameOverScene");
         }
 
         if(!this.gameOver){
