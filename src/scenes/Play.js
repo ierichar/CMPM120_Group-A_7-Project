@@ -4,7 +4,6 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-
         // tiled space 
         this.starfield = this.add.tileSprite(0, 0, 960, 640, 'starfield').setOrigin(0, 0);
 
@@ -40,9 +39,9 @@ class Play extends Phaser.Scene {
         }
 
         // add spikes
-        this.spike01 = new Spike(this, 500, 585, 'spikes', 0, 30).setScale(2.0).setOrigin(0, 0).setScale(2);
+        this.spike01 = new Spike(this, 540, 605, 'spikes', 0, 30).setScale(2.0).setOrigin(0.5, 1);
         this.spike01.showBody = true;
-        this.spike01.body.setSize(.1);
+        this.spike01.body.setSize(this.spike01.width*1,this.spike01.height*1);
         // add railings (short and long)
         this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setScale(2.0).setOrigin(0, 0)
         this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setScale(2.0).setOrigin(0, 0)
@@ -53,7 +52,7 @@ class Play extends Phaser.Scene {
         this.longRailing01.body.allowGravity = false;
         this.shortRailing01.body.allowGravity = false;
         this.spike01.body.allowGravity = false;
-        this.physics.add.collider(this.playerOne, this.spike01);
+        this.physics.add.collider(this.playerOne, this.spike01,this.touchSpike, false, this);
         this.physics.add.collider(this.playerOne, this.shortRailing01);
         this.physics.add.collider(this.playerOne, this.longRailing01);
 
@@ -88,14 +87,13 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        
-        //this.gameOver = true;
+    
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
 
-        if(this.checkCollision(this.playerOne, this.spike01)){
-            this.gameOver = true;
-        }
+       // if(this.checkCollision(this.playerOne, this.spike01)){
+        //    this.gameOver = true;
+       // }
 
         // starfield movement
         this.starfield.tilePositionX += 3;  // update tile sprite
@@ -110,7 +108,7 @@ class Play extends Phaser.Scene {
 
         // this.clockRight.text = (this.clock/1000);
 
-        if (this.gameOver) {
+        if (this.gameOver==true) {
             this.scene.start("gameOverScene");
         }
 
@@ -123,6 +121,10 @@ class Play extends Phaser.Scene {
 
         
 
+    }
+
+    touchSpike(){
+            this.scene.start("gameOverScene");
     }
 
     checkCollision(rocket, ship){
