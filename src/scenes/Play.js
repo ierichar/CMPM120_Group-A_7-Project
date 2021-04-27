@@ -40,10 +40,10 @@ class Play extends Phaser.Scene {
         }
 
         // add spikes
-        this.spike01 = new Spike(this, 500, 595, 'spikes', 0, 30).setOrigin(0, 0);
+        this.spike01 = new Spike(this, 500, 585, 'spikes', 0, 30).setScale(2.0).setOrigin(0, 0).setScale(2);
         // add railings (short and long)
-        this.shortRailing01 = new Railing(this, 400, 590, 'railing_short', 0, 30).setOrigin(0, 0);
-        this.longRailing01 = new Railing(this, 600, 590, 'railing_long', 0, 30).setOrigin(0, 0);
+        this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setScale(2.0).setOrigin(0, 0)
+        this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setScale(2.0).setOrigin(0, 0)
         // add physics between player and spikes, and player and railing
         this.longRailing01.body.immovable = true;
         this.shortRailing01.body.immovable = true;

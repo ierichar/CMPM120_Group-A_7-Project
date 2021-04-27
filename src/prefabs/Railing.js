@@ -12,7 +12,7 @@ class Railing extends Phaser.GameObjects.Sprite {
         // move railing left
         this.x -= this.moveSpeed;
         // wrap around from left to right edge
-        if (this.x <= 0 - this.width) {
+        if (this.x <= 0 - this.width -borderUISize) {
             this.reset();
         }
     }
