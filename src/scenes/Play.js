@@ -41,6 +41,8 @@ class Play extends Phaser.Scene {
 
         // add spikes
         this.spike01 = new Spike(this, 500, 585, 'spikes', 0, 30).setScale(2.0).setOrigin(0, 0).setScale(2);
+        this.spike01.showBody = true;
+        this.spike01.body.setSize(.1);
         // add railings (short and long)
         this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setScale(2.0).setOrigin(0, 0)
         this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setScale(2.0).setOrigin(0, 0)
@@ -67,8 +69,8 @@ class Play extends Phaser.Scene {
 
               //bring up game over
         this.clock = this.time.delayedCall(10000, () => {
-            this.gameOver = true;
-            }, null, this);
+         //   this.gameOver = true;
+          }, null, this);
             
             //initiate clock
             this.clock = this.clock.getElapsed();
@@ -80,6 +82,9 @@ class Play extends Phaser.Scene {
 
         //clock 
         this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
+
+
+
     }
 
     update() {
@@ -88,6 +93,9 @@ class Play extends Phaser.Scene {
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
 
+        if(this.checkCollision(this.playerOne, this.spike01)){
+            this.gameOver = true;
+        }
 
         // starfield movement
         this.starfield.tilePositionX += 3;  // update tile sprite
@@ -112,5 +120,22 @@ class Play extends Phaser.Scene {
             this.shortRailing01.update();
             this.longRailing01.update();
         }
+
+        
+
     }
+
+    checkCollision(rocket, ship){
+        //simple AABB checking
+        if(rocket.x < ship.x + ship.width && 
+            rocket.x + rocket.width > ship.x && 
+            rocket.y < ship.y + ship.height && 
+            rocket.height + rocket.y > ship.y){
+
+                return true;
+        }   else {
+            return false;
+        }
+    }
+    
 }
