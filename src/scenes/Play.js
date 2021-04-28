@@ -44,8 +44,10 @@ class Play extends Phaser.Scene {
         this.spike01.showBody = true;
         this.spike01.body.setSize(.1);
         // add railings (short and long)
-        this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setScale(2.0).setOrigin(0, 0)
-        this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setScale(2.0).setOrigin(0, 0)
+        this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setScale(2.0).setOrigin(0, 0);
+        this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setScale(2.0).setOrigin(0, 0);
+        // add bonus
+        
         // add physics between player and spikes, and player and railing
         this.longRailing01.body.immovable = true;
         this.shortRailing01.body.immovable = true;
@@ -93,9 +95,13 @@ class Play extends Phaser.Scene {
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
 
-        if(this.checkCollision(this.playerOne, this.spike01)){
-            this.gameOver = true;
-        }
+        // if(this.checkCollision(this.playerOne, this.spike01)){
+        //     this.gameOver = true;
+        // }
+
+        // if (this.checkCollision(this.playerOne, this.bonus01)) {
+        //     this.bonus01.inInventory = true;
+        // }
 
         // starfield movement
         this.starfield.tilePositionX += 3;  // update tile sprite
@@ -125,17 +131,16 @@ class Play extends Phaser.Scene {
 
     }
 
-    checkCollision(rocket, ship){
-        //simple AABB checking
-        if(rocket.x < ship.x + ship.width && 
-            rocket.x + rocket.width > ship.x && 
-            rocket.y < ship.y + ship.height && 
-            rocket.height + rocket.y > ship.y){
+    // checkCollision(rocket, ship){
+    //     //simple AABB checking
+    //     if(rocket.x < ship.x + ship.width && 
+    //         rocket.x + rocket.width > ship.x && 
+    //         rocket.y < ship.y + ship.height && 
+    //         rocket.height + rocket.y > ship.y){
 
-                return true;
-        }   else {
-            return false;
-        }
-    }
-    
+    //             return true;
+    //     }   else {
+    //         return false;
+    //     }
+    // }
 }
