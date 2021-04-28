@@ -5,6 +5,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // load audio and title card
+        this.MenuScreen = this.add.tileSprite(0, 0, 960, 640, 'TitleScreen').setOrigin(0, 0);
     }
 
     create() {
@@ -24,12 +25,12 @@ class Menu extends Phaser.Scene {
 
 
         // show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - 
-            borderPadding, 'S K A T E R', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use SPACEBAR to jump',
-            menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize +
-            borderPadding, 'Press (p) to play!', menuConfig).setOrigin(0.5);
+        // this.add.text(game.config.width/2, game.config.height/2 - borderUISize - 
+        //     borderPadding, 'S K A T E R', menuConfig).setOrigin(0.5);
+        // this.add.text(game.config.width/2, game.config.height/2, 'Use SPACEBAR to jump',
+        //     menuConfig).setOrigin(0.5);
+        // this.add.text(game.config.width/2, game.config.height/2 + borderUISize +
+        //     borderPadding, 'Press (p) to play!', menuConfig).setOrigin(0.5);
 
         // define keys
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
