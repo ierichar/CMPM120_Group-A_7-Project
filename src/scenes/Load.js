@@ -23,6 +23,7 @@ class Load extends Phaser.Scene {
         this.load.image('Layer2', './assets/Layer2.png');
         this.load.image('Layer3', './assets/Layer3.png');
 
+        this.load.image('floor', './assets/Floor.png');
 
         // load audio assets
         
