@@ -5,7 +5,10 @@ class Play extends Phaser.Scene {
 
     create() {
         // tiled space 
-        this.starfield = this.add.tileSprite(0, 0, 960, 640, 'starfield').setOrigin(0, 0);
+        this.starfield = this.add.tileSprite(0, 0, 960, 640, 'Layer1').setOrigin(0, 0);
+        this.Layer3 = this.add.tileSprite(0, 0, 960, 640, 'Layer3').setOrigin(0, 0);
+        this.Layer2 = this.add.tileSprite(0, 0, 960, 640, 'Layer2').setOrigin(0, 0);
+
 
         //adding tiled floor! (curtesy of Nathan Altice Movemnet Studies Repository)
         this.gameFloor =  this.add.group();
@@ -17,8 +20,6 @@ class Play extends Phaser.Scene {
         }
 
         // initialize skater (scene, x, y, sprite, frame)
-        // this.playerOne = new Skater(this, game.config.width/2, game.config.width/2, 'placeholder_char').setOrigin(0.5, 0);
-
         this.playerOne = this.physics.add.sprite(50, 500, 'placeholder_char', 0);
         this.playerOne.setCollideWorldBounds(true);
 
@@ -37,6 +38,22 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+
+        this.PurpleGuy = this.physics.add.sprite(480, 320, 'PurpleGuy', 0);
+        this.PurpleGuy.setCollideWorldBounds(true);
+        this.physics.add.collider(this.PurpleGuy, this.gameFloor);
+
+        this.RedGuy = this.physics.add.sprite(580, 320, 'RedGuy', 0);
+        this.RedGuy.setCollideWorldBounds(true);
+        this.physics.add.collider(this.RedGuy, this.gameFloor);
+
+        this.GreenGuy = this.physics.add.sprite(680, 320, 'GreenGuy', 0);
+        this.GreenGuy.setCollideWorldBounds(true);
+        this.physics.add.collider(this.GreenGuy, this.gameFloor);
+
+        this.BlueGuy = this.physics.add.sprite(780, 320, 'BlueGuy', 0);
+        this.BlueGuy.setCollideWorldBounds(true);
+        this.physics.add.collider(this.BlueGuy, this.gameFloor);
 
         // add spikes
         this.spike01 = new Spike(this, 540, 605, 'spikes', 0, 30).setScale(2.0).setOrigin(0.5, 1);
@@ -99,6 +116,8 @@ class Play extends Phaser.Scene {
 
         // starfield movement
         this.starfield.tilePositionX += 3;  // update tile sprite
+        this.Layer2.tilePositionX += 1;  // update tile sprite
+        this.Layer3.tilePositionX += 2;  // update tile sprite
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
