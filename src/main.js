@@ -17,7 +17,7 @@ let config = {
         arcade: {
             x:0,
             y:0,
-            debug: false
+            debug: true
         }
     },
     scene: [ Load, Menu, Play, GameOver ]

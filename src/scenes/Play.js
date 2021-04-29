@@ -59,6 +59,14 @@ class Play extends Phaser.Scene {
         this.spike01 = new Spike(this, 540, 605, 'spikes', 0, 30).setScale(2.0).setOrigin(0.5, 1);
         this.spike01.showBody = true;
         this.spike01.body.setSize(this.spike01.width*1,this.spike01.height*1);
+
+        this.bird01 = new Bird(this, 540, 200, 'spikes', 0, 30).setScale(2.0).setOrigin(0,0);
+        this.bird01.showBody = true;
+        this.bird01.body.setSize(this.bird01.width*1,this.bird01.height*1);
+        this.bird01.body.setAllowGravity(false);
+
+
+
         // add railings (short and long)
         this.shortRailing01 = new Railing(this, 400, 580, 'railing_short', 0, 30).setScale(2.0).setOrigin(0, 0);
         this.longRailing01 = new Railing(this, 600, 580, 'railing_long', 0, 30).setScale(2.0).setOrigin(0, 0);
@@ -74,6 +82,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.spike01,this.touchSpike, false, this);
         this.physics.add.collider(this.playerOne, this.shortRailing01);
         this.physics.add.collider(this.playerOne, this.longRailing01);
+        this.physics.add.collider(this.playerOne, this.bird01,this.touchSpike, false, this);
 
         // define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -109,10 +118,6 @@ class Play extends Phaser.Scene {
     
         
         //this.clockRight.text = this.game.time.getElapsedSeconds();
-
-       // if(this.checkCollision(this.playerOne, this.spike01)){
-        //    this.gameOver = true;
-       // }
 
         // starfield movement
         this.starfield.tilePositionX += 1;  // update tile sprite
@@ -166,6 +171,7 @@ class Play extends Phaser.Scene {
             this.spike01.update();
             this.shortRailing01.update();
             this.longRailing01.update();
+            this.bird01.update();
         }
 
         
