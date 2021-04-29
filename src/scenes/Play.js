@@ -96,7 +96,7 @@ class Play extends Phaser.Scene {
 
         //give world physics
         this.physics.world.gravity.y = 2600;
-        this.JUMP_VELOCITY = -1000;
+        this.JUMP_VELOCITY = -600;
 
         //clock 
         this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
@@ -119,9 +119,37 @@ class Play extends Phaser.Scene {
         this.Layer2.tilePositionX += 2;  // update tile sprite
         this.Layer3.tilePositionX += 3;  // update tile sprite
 
-        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
-        }
+
+        // check if alien is grounded
+	    this.playerOne.isGrounded = this.playerOne.body.touching.down;
+	    // if so, we have jumps to spare 
+	    if(this.playerOne.isGrounded) {
+	    	this.jumps = 1;
+	    	this.jumping = false;
+	    } else {
+	    	//this.alien.anims.play('jump');
+	    }
+
+        // allow steady velocity change up to a certain key down duration
+        // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.DownDuration__anchor
+        //thanks for the code nathan!
+	    if(this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(keySPACE, 200)) {
+	        this.playerOne.body.velocity.y = this.JUMP_VELOCITY;
+	        this.jumping = true;
+	        
+	    } else {
+	    	
+	    }
+        // finally, letting go of the UP key subtracts a jump
+        // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.UpDuration__anchor
+	    if(this.jumping && Phaser.Input.Keyboard.UpDuration(keySPACE)) {
+	    	this.jumps--;
+	    	this.jumping = false;
+	    }
+
+        //if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+        //    this.playerOne.body.setVelocityY(this.JUMP_VELOCITY);
+        //}
 
         if (this.playerOne.y > game.config.height-borderPadding) {
             this.playerOne.y = game.config.height - borderPadding;
