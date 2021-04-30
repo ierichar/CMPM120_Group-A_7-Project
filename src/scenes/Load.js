@@ -5,7 +5,7 @@ class Load extends Phaser.Scene {
 
     preload() {
         // load graphic assets
-        this.load.image('placeholder_char', './assets/Slug.png');
+        this.load.image('placeholder_char', './assets/SlugSideView.png');
         this.load.image('starfield', './assets/starfield.png');
         this.load.image('railing_short', './assets/Railing.png');
         this.load.image('railing_long', './assets/Railing2.png');
