@@ -156,7 +156,7 @@ class Play extends Phaser.Scene {
 	    }
 
         // collider between player, buyer, and item for inventory
-        this.physics.onOverlap(this.playerOne, this.bonus01);
+        //this.physics.onOverlap(this.playerOne, this.bonus01);
         this.physics.collide(this.playerOne, this.BlueGuy);
         this.physics.collide(this.playerOne, this.GreenGuy);
         this.physics.collide(this.playerOne, this.PurpleGuy);
