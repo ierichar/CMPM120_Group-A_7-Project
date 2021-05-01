@@ -37,3 +37,6 @@ let gameSpeed = 2;
 let keySPACE;
 let keyP;
 let keyM;
+
+// set global high score
+let score = 0;
