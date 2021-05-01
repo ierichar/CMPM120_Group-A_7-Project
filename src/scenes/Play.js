@@ -75,12 +75,12 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.bird01, this.touchSpike, false, this);
 
         // add railings (short and long)
-        this.shortRailing01 = new Railing(this, 400, 605, 'railing_short', 0, 30).setOrigin(0, 1);
+        this.shortRailing01 = new Railing(this, 400, 580, 'bench1', 0, 30).setScale(2.0).setOrigin(0, 0);
         this.shortRailing01.body.immovable = true;
         this.shortRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.shortRailing01);
 
-        this.longRailing01 = new Railing(this, 600, 605, 'railing_long', 0, 30).setOrigin(0, 1);
+        this.longRailing01 = new Railing(this, 600, 580, 'bench2', 0, 30).setScale(2.0).setOrigin(0, 0);
         this.longRailing01.body.immovable = true;
         this.longRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.longRailing01);
