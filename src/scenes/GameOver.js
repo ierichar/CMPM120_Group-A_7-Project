@@ -3,11 +3,11 @@ class GameOver extends Phaser.Scene {
         super("gameOverScene");
     }
     create() {
+
         let gameOverConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            fontFamily: 'Arial',
+            fontSize: '46px',
+            color: '#FFFFFF',
             align: 'right',
             padding: {
                 top: 5,
@@ -19,10 +19,12 @@ class GameOver extends Phaser.Scene {
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
-        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', gameOverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, `Your score is ${score}`, gameOverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 104, 'Press (P) to Play Again', gameOverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 144, 'Press (M) for Menu', gameOverConfig).setOrigin(0.5);
+        this.MenuScreen = this.add.tileSprite(0, 0, 960, 640, 'EndScreen').setOrigin(0, 0);
+
+        //this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', gameOverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2+180, game.config.height/2 + 78, `${score}`, gameOverConfig).setOrigin(0.5);
+        //this.add.text(game.config.width/2, game.config.height/2 + 104, 'Press (P) to Play Again', gameOverConfig).setOrigin(0.5);
+        //this.add.text(game.config.width/2, game.config.height/2 + 144, 'Press (M) for Menu', gameOverConfig).setOrigin(0.5);
     }
 
     update() {
