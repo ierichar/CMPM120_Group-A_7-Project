@@ -18,29 +18,8 @@ class Play extends Phaser.Scene {
             this.gameFloor.add(groundTile);
         }
 
-        // add buyers
-        this.PurpleGuy = new Buyer(this, 480, 420, 'PurpleGuy', 0, 30).setOrigin(0, 0);
-        this.PurpleGuy.setOnWorldBounds = true;
-        this.PurpleGuy.body.immovable = true;
-        this.PurpleGuy.body.allowGravity = false;
-
-        this.RedGuy = new Buyer(this, 580, 420, 'RedGuy', 0, 30).setOrigin(0, 0);
-        this.RedGuy.setOnWorldBounds = true;
-        this.RedGuy.body.immovable = true;
-        this.RedGuy.body.allowGravity = false;
-
-        this.GreenGuy = new Buyer(this, 680, 420, 'GreenGuy', 0, 30).setOrigin(0, 0);
-        this.GreenGuy.setOnWorldBounds = true;
-        this.GreenGuy.body.immovable = true;
-        this.GreenGuy.body.allowGravity = false;
-
-        this.BlueGuy = new Buyer(this, 780, 420, 'BlueGuy', 0, 30).setOrigin(0, 0);
-        this.BlueGuy.setOnWorldBounds = true;
-        this.BlueGuy.body.immovable = true;
-        this.BlueGuy.body.allowGravity = false;
-
         // initialize skater (scene, x, y, sprite, frame)
-        this.playerOne = this.physics.add.sprite(50, 500, 'placeholder_char', 0);
+        this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char', 0);
         this.playerOne.setCollideWorldBounds(true);
 
         // physics collider for skater to ground 
@@ -59,8 +38,16 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
+        // add trashcan
+        this.trashcan01 = new Spike(this, game.config.width, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
+        this.trashcan01.showBody = true;
+        this.trashcan01.body.setSize(this.trashcan01.width*1,this.trashcan01.height*1);
+        this.trashcan01.body.immovable = true;
+        this.trashcan01.body.allowGravity = false;
+        this.physics.add.collider(this.playerOne, this.trashcan01, this.touchSpike, false, this);
+
         // add spike
-        this.spike01 = new Spike(this, 540, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
+        this.spike01 = new Spike(this, game.config.width, 605, 'spikes', 0, 30).setOrigin(0.5, 1);
         this.spike01.showBody = true;
         this.spike01.body.setSize(this.spike01.width*1,this.spike01.height*1);
         this.spike01.body.immovable = true;
@@ -68,59 +55,110 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.spike01, this.touchSpike, false, this);
 
         // add bird
-        this.bird01 = new Spike(this, 540, 200, 'spikes', 0, 30).setScale(2.0).setOrigin(0,0);
+        this.bird01 = new Spike(this, game.config.width, 200, 'spikes', 0, 30).setOrigin(0,0);
         this.bird01.showBody = true;
         this.bird01.body.setSize(this.bird01.width*1,this.bird01.height*1);
         this.bird01.body.setAllowGravity(false);
         this.physics.add.collider(this.playerOne, this.bird01, this.touchSpike, false, this);
 
         // add railings (short and long)
-        this.shortRailing01 = new Railing(this, 400, 580, 'bench1', 0, 30).setScale(2.0).setOrigin(0, 0);
+        this.shortRailing01 = new Railing(this, game.config.width, 605, 'bench1', 0, 30).setOrigin(0, 1);
         this.shortRailing01.body.immovable = true;
         this.shortRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.shortRailing01);
 
-        this.longRailing01 = new Railing(this, 600, 580, 'bench2', 0, 30).setScale(2.0).setOrigin(0, 0);
+        this.longRailing01 = new Railing(this, game.config.width, 605, 'bench2', 0, 30).setOrigin(0, 1);
         this.longRailing01.body.immovable = true;
         this.longRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.longRailing01);
 
         // add bonus
-        this.bonus01 = new Bonus(this, 540, 300, 'coin_temp', 0, 30).setScale(2.0).setOrigin(0, 0);
+        this.bonus01 = new Bonus(this, game.config.width, 300, 'coin_temp', 0, 30).setScale(2.0).setOrigin(0, 0);
         this.bonus01.showBody = true;
         this.bonus01.body.setAllowGravity(false);
         this.bonus01.body.onOverlap = true;
         this.bonus01.body.onCollide = true;
-        this.bonus01.body.onWorldBounds = true;
 
-        // define keys
+        // add buyers
+        this.PurpleGuy = new Buyer(this, game.config.width, 605, 'PurpleGuy', 0, 30).setOrigin(0, 1);
+        this.PurpleGuy.setOnWorldBounds = true;
+        this.PurpleGuy.body.immovable = true;
+        this.PurpleGuy.body.allowGravity = false;
+
+        this.RedGuy = new Buyer(this, game.config.width, 605, 'RedGuy', 0, 30).setOrigin(0, 1);
+        this.RedGuy.setOnWorldBounds = true;
+        this.RedGuy.body.immovable = true;
+        this.RedGuy.body.allowGravity = false;
+
+        this.GreenGuy = new Buyer(this, game.config.width, 605, 'GreenGuy', 0, 30).setOrigin(0, 1);
+        this.GreenGuy.setOnWorldBounds = true;
+        this.GreenGuy.body.immovable = true;
+        this.GreenGuy.body.allowGravity = false;
+
+        this.BlueGuy = new Buyer(this, game.config.width, 605, 'BlueGuy', 0, 30).setOrigin(0, 1);
+        this.BlueGuy.setOnWorldBounds = true;
+        this.BlueGuy.body.immovable = true;
+        this.BlueGuy.body.allowGravity = false;
+
+        // define key
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         // initialize score
-        this.playerScore = 0;
+        // this.playerScore = 0;
+        // Ian: created global score variable in main.js
 
-        //game over Flag
+        // game over Flag
         this.gameOver = false;
 
-        //bring up game over
+        // bring up game over
         this.clock = this.time.delayedCall(10000, () => {
          //   this.gameOver = true;
         }, null, this);
             
         //initiate clock
         this.clock = this.clock.getElapsed();
+
+        // set up speed-up timer
+        // see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/scenes/Play.js
+        this.diffcultyTimer = this.time.addEvent({
+            delay: 30000,
+            callback: this.nextLevel,
+            callbackScope: this,
+            loop: true
+        });
+        // set up bench loop
+        this.benchTimer = this.time.addEvent({
+            delay: 2500,
+            callback: this.addBench,
+            callbackScope: this,
+            loop: true
+        });
+        // set up obstacle loop
+        this.obstacleTimer = this.time.addEvent({
+            delay: 5000,
+            callback: this.addObstacle,
+            callbackScope: this,
+            loop: true
+        });
+        // set up buyer loop
+        this.buyerTimer = this.time.addEvent({
+            delay: 5000,
+            callback: this.addBuyer,
+            callbackScope: this,
+            loop: true
+        });
             
-        //give world physics
+        // give world physics
         this.physics.world.gravity.y = 2600;
         this.JUMP_VELOCITY = -600;
 
-        //clock 
+        // clock 
         this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
-        this.add.text(game.config.width- borderUISize*4 - borderPadding, borderUISize + borderPadding*2, score, playConfig)
+        this.add.text(game.config.width- borderUISize*4 - borderPadding, borderUISize + borderPadding*2, score, playConfig);
     }
 
     update() {
-        //this.clockRight.text = this.game.time.getElapsedSeconds();
+        // this.clockRight.text = this.game.time.getElapsedSeconds();
 
         // background movement
         this.starfield.tilePositionX += 1;  // update tile sprite
@@ -145,9 +183,8 @@ class Play extends Phaser.Scene {
 	        this.playerOne.body.velocity.y = this.JUMP_VELOCITY;
 	        this.jumping = true;
 	        
-	    } else {
-	    	
 	    }
+
         // finally, letting go of the UP key subtracts a jump
         // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.UpDuration__anchor
 	    if (this.jumping && Phaser.Input.Keyboard.UpDuration(keySPACE)) {
@@ -156,29 +193,95 @@ class Play extends Phaser.Scene {
 	    }
 
         // collider between player, buyer, and item for inventory
-        //this.physics.onOverlap(this.playerOne, this.bonus01);
-        this.physics.collide(this.playerOne, this.BlueGuy);
-        this.physics.collide(this.playerOne, this.GreenGuy);
-        this.physics.collide(this.playerOne, this.PurpleGuy);
-        this.physics.collide(this.playerOne, this.RedGuy);
+        // this.physics.onOverlap(this.playerOne, this.bonus01);
+        // this.physics.collide(this.playerOne, this.BlueGuy);
+        // this.physics.collide(this.playerOne, this.GreenGuy);
+        // this.physics.collide(this.playerOne, this.PurpleGuy);
+        // this.physics.collide(this.playerOne, this.RedGuy);
 
         // this.clockRight.text = (this.clock/1000);
 
-        if (this.gameOver==true) {
+        if (this.gameOver == true) {
             this.scene.start("gameOverScene");
         }
 
         if (!this.gameOver){
             this.playerOne.update();
             this.spike01.update();
+            this.bird01.update();
+            this.trashcan01.update();
             this.shortRailing01.update();
             this.longRailing01.update();
-            this.bird01.update();
             this.bonus01.update();
             this.PurpleGuy.update();
             this.RedGuy.update();
             this.GreenGuy.update();
             this.BlueGuy.update();
+        }
+    }
+
+    nextLevel() {
+        this.bonus01.increaseSpeed();
+        this.spike01.increaseSpeed();
+        this.shortRailing01.increaseSpeed();
+        this.longRailing01.increaseSpeed();
+        this.bird01.increaseSpeed();
+        this.bonus01.increaseSpeed();
+        this.PurpleGuy.increaseSpeed();
+        this.RedGuy.increaseSpeed();
+        this.GreenGuy.increaseSpeed();
+        this.BlueGuy.increaseSpeed();
+    }
+
+    addBuyer() {
+        let x = Phaser.Math.Between(0, 3);
+        switch (x) {
+            case 0:
+                this.PurpleGuy.reset();
+                break;
+            case 1:
+                this.RedGuy.reset();
+                break;
+            case 2:
+                this.GreenGuy.reset();
+                break;
+            case 3:
+                this.BlueGuy.reset();
+                break;
+        }
+    }
+
+    addObstacle() {
+        let y = Phaser.Math.Between(0, 2);
+        // add bonus
+        this.bonus01.reset();
+        switch (y) {
+            case 0:
+                // add spike
+                this.spike01.reset();
+                break;
+            case 1:
+                // add bird
+                this.bird01.reset();
+                break;
+            case 2:
+                // add trashcan
+                this.trashcan01.reset();
+                break;
+        }
+    }
+
+    addBench() {
+        let z = Phaser.Math.Between(0, 1);
+        switch (z) {
+            case 0:
+                // add railings (short and long)
+                this.shortRailing01.reset();
+                break;
+            case 1:
+                this.longRailing01.reset();
+                break;
+
         }
     }
 

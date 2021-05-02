@@ -13,11 +13,16 @@ class Buyer extends Phaser.GameObjects.Sprite {
         this.x -= this.moveSpeed;
         // wrap around from left to right edge
         if (this.x <= 0 - this.width - borderUISize) {
-            this.reset();
+            this.moveSpeed = 0;
         }
+    }
+
+    increaseSpeed() {
+        this.moveSpeed++;
     }
 
     reset() {
         this.x = game.config.width;
+        this.moveSpeed = gameSpeed;
     }
 }
