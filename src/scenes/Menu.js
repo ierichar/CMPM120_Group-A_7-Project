@@ -23,23 +23,19 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
 
-
-        // show menu text
-        // this.add.text(game.config.width/2, game.config.height/2 - borderUISize - 
-        //     borderPadding, 'S K A T E R', menuConfig).setOrigin(0.5);
-        // this.add.text(game.config.width/2, game.config.height/2, 'Use SPACEBAR to jump',
-        //     menuConfig).setOrigin(0.5);
-        // this.add.text(game.config.width/2, game.config.height/2 + borderUISize +
-        //     borderPadding, 'Press (p) to play!', menuConfig).setOrigin(0.5);
-
         // define keys
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyP)) {
             // start game
             this.scene.start('playScene');
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyC)) {
+            // see credits
+            this.scene.start('creditScene');
         }
     }
 }

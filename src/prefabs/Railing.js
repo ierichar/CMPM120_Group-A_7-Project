@@ -17,10 +17,6 @@ class Railing extends Phaser.GameObjects.Sprite {
         }
     }
 
-    increaseSpeed() {
-        this.moveSpeed++;
-    }
-
     reset() {
         this.x = game.config.width;
         this.moveSpeed = gameSpeed;

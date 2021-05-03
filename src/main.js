@@ -20,7 +20,7 @@ let config = {
             debug: true
         }
     },
-    scene: [ Load, Menu, Play, GameOver ]
+    scene: [ Load, Menu, Credits, Play, GameOver ]
 }
 
 let game = new Phaser.Game(config);
@@ -37,6 +37,7 @@ let gameSpeed = 2;
 let keySPACE;
 let keyP;
 let keyM;
+let keyC;
 
 // set global high score
-let score = 0;
+let score = -2000;
