@@ -258,9 +258,6 @@ class Play extends Phaser.Scene {
         }
     }
 
-    touchSpike() {
-        this.scene.start("gameOverScene");
-    }
 
     nextLevel() {
         gameSpeed += 0.5;
@@ -341,15 +338,4 @@ class Play extends Phaser.Scene {
         this.gameOverNoise.play();
     }
 
-    addInventory() {
-        if (!this.playerOne.hasItem) {
-            this.playerOne.hasItem = true;
-        }
-    }
-
-    getBonus() {
-        if (this.playerOne.hasItem) {
-            score += 500;
-        }
-    }
 }
