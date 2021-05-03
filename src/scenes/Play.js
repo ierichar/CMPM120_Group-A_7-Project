@@ -97,28 +97,28 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.bonus01, this.playerOne, this.addPoints());
 
         // add buyers
-        this.PurpleGuy = new Buyer(this, game.config.width, 400, 'PurpleGuy', 0, 30).setOrigin(1, 0);
+        this.PurpleGuy = new Buyer(this, 0, 400, 'PurpleGuy', 0, 30).setOrigin(0, 0);
         this.PurpleGuy.setOnWorldBounds = true;
         this.PurpleGuy.body.immovable = true;
         this.PurpleGuy.body.allowGravity = false;
         this.PurpleGuy.body.setCollideWorldBounds(false);
         this.physics.add.collider(this.PurpleGuy, this.playerOne, this.addPoints());
 
-        this.RedGuy = new Buyer(this, game.config.width, 400, 'RedGuy', 0, 30).setOrigin(1, 0);
+        this.RedGuy = new Buyer(this, 0, 400, 'RedGuy', 0, 30).setOrigin(0, 0);
         this.RedGuy.setOnWorldBounds = true;
         this.RedGuy.body.immovable = true;
         this.RedGuy.body.allowGravity = false;
         this.RedGuy.body.setCollideWorldBounds(false);
         this.physics.add.collider(this.RedGuy, this.playerOne, this.addPoints());
 
-        this.GreenGuy = new Buyer(this, game.config.width, 400, 'GreenGuy', 0, 30).setOrigin(1, 0);
+        this.GreenGuy = new Buyer(this, 0, 400, 'GreenGuy', 0, 30).setOrigin(0, 0);
         this.GreenGuy.setOnWorldBounds = true;
         this.GreenGuy.body.immovable = true;
         this.GreenGuy.body.allowGravity = false;
         this.GreenGuy.body.setCollideWorldBounds(false);
         this.physics.add.collider(this.GreenGuy, this.playerOne, this.addPoints());
 
-        this.BlueGuy = new Buyer(this, game.config.width, 400, 'BlueGuy', 0, 30).setOrigin(1, 0);
+        this.BlueGuy = new Buyer(this, 0, 400, 'BlueGuy', 0, 30).setOrigin(0, 0);
         this.BlueGuy.setOnWorldBounds = true;
         this.BlueGuy.body.immovable = true;
         this.BlueGuy.body.allowGravity = false;
@@ -126,7 +126,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.BlueGuy, this.playerOne, this.addPoints());
 
         // create burrito thought bubble
-        this.BurritoBubble = new Buyer(this, game.config.width + 40, 400, 'BurritoBubble', 0, 30).setOrigin(0, 1);
+        this.BurritoBubble = new Buyer(this, 0 + 40, 400, 'BurritoBubble', 0, 30).setOrigin(0, 1);
         this.BurritoBubble.body.immovable = true;
         this.BurritoBubble.body.allowGravity = false;
         this.BurritoBubble.body.setCollideWorldBounds(false);
@@ -138,15 +138,7 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // reset gameSpeed
-        gameSpeed = 2;
-
-        // bring up game over
-        this.clock = this.time.delayedCall(10000, () => {
-         //   this.gameOver = true;
-        }, null, this);
-            
-        //initiate clock
-        this.clock = this.clock.getElapsed();
+        gameSpeed = 8;
 
         // set up speed-up timer
         // see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/scenes/Play.js
@@ -194,14 +186,11 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 2600;
         this.JUMP_VELOCITY = -600;
 
-        // clock 
-        this.clockRight = this.add.text(game.config.width- borderUISize*5 - borderPadding, borderUISize + borderPadding*2, this.clock / 1000, playConfig);
+        // game score
         this.displayScore = this.add.text(game.config.width- borderUISize*4 - borderPadding, borderUISize + borderPadding*2, score, playConfig);
     }
 
     update() {
-        // this.clockRight.text = this.game.time.getElapsedSeconds();
-
         // background movement
         this.starfield.tilePositionX += 1;  // update tile sprite
         this.Layer2.tilePositionX += 2;  // update tile sprite
@@ -236,8 +225,6 @@ class Play extends Phaser.Scene {
         // update score
         this.displayScore.text = score;
 
-        // this.clockRight.text = (this.clock/1000);
-
         if (this.gameOver == true) {
             this.scene.start("gameOverScene");
         }
@@ -256,10 +243,6 @@ class Play extends Phaser.Scene {
             this.BlueGuy.update();
             this.BurritoBubble.update();
         }
-    }
-
-    touchSpike() {
-        this.scene.start("gameOverScene");
     }
 
     nextLevel() {
@@ -339,17 +322,5 @@ class Play extends Phaser.Scene {
         this.scene.start("gameOverScene");
         this.bgm.mute = true;
         this.gameOverNoise.play();
-    }
-
-    addInventory() {
-        if (!this.playerOne.hasItem) {
-            this.playerOne.hasItem = true;
-        }
-    }
-
-    getBonus() {
-        if (this.playerOne.hasItem) {
-            score += 500;
-        }
     }
 }
