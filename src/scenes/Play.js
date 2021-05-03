@@ -225,9 +225,18 @@ class Play extends Phaser.Scene {
         // update score
         this.displayScore.text = score;
 
+        if(this.playerOne.body.touching.down && (this.shortRailing01.body.touching.up || this.longRailing01.body.touching.up)){
+            score += 1;
+            console.log(score);
+            
+        }
+
+
+
         if (this.gameOver == true) {
             this.scene.start("gameOverScene");
         }
+
 
         if (!this.gameOver) {
             this.playerOne.update();
@@ -245,10 +254,6 @@ class Play extends Phaser.Scene {
         }
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1a58cb21f881c5c67281a21400fbec68e6a92688
     nextLevel() {
         gameSpeed += 0.5;
     }
@@ -327,8 +332,4 @@ class Play extends Phaser.Scene {
         this.bgm.mute = true;
         this.gameOverNoise.play();
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 1a58cb21f881c5c67281a21400fbec68e6a92688
 }
