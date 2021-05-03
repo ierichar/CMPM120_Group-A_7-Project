@@ -28,7 +28,8 @@ class Load extends Phaser.Scene {
         this.load.image('floor', './assets/Floor.png');
 
         // load audio assets
-        
+        this.load.audio('bgm', './assets/endless-runner-background-music.mp3');
+        this.load.audio('gameOverNoise', './assets/dying-sound.wav');
     }
 
     create() {

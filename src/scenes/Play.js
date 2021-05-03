@@ -9,6 +9,21 @@ class Play extends Phaser.Scene {
         this.Layer3 = this.add.tileSprite(0, 0, 960, 640, 'Layer3').setOrigin(0, 0);
         this.Layer2 = this.add.tileSprite(0, 0, 960, 640, 'Layer2').setOrigin(0, 0);
 
+        //set up background audio
+        this.bgm = this.sound.add('bgm', { 
+            mute: false,
+            volume: .55,
+            rate: 1,
+            loop: true 
+        });
+        this.bgm.play();
+        
+        this.gameOverNoise = this.sound.add('gameOverNoise', {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: false
+        });
         //adding tiled floor! (curtesy of Nathan Altice Movemnet Studies Repository)
         this.gameFloor =  this.add.group();
         for(let i = 0; i < game.config.width; i += tileSize) {
@@ -316,6 +331,25 @@ class Play extends Phaser.Scene {
                 this.BlueGuy.reset();
                 this.BurritoBubble.reset();
                 break;
+
+        }
+    }
+
+    touchSpike() {
+        this.scene.start("gameOverScene");
+        this.bgm.mute = true;
+        this.gameOverNoise.play();
+    }
+
+    addInventory() {
+        if (!this.playerOne.hasItem) {
+            this.playerOne.hasItem = true;
+        }
+    }
+
+    getBonus() {
+        if (this.playerOne.hasItem) {
+            score += 500;
         }
     }
 }
