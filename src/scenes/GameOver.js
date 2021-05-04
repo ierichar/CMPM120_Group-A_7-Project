@@ -30,11 +30,11 @@ class GameOver extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyM)) {
             this.scene.start("menuScene");
-            score = -2000;
+            gameSpeed = 2;
         }
         if (Phaser.Input.Keyboard.JustDown(keyP)) {
             this.scene.start("playScene");
-            score = -2000;
+            gameSpeed = 2;
         }
     }
 }

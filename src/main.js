@@ -19,11 +19,6 @@ let config = {
             y:0,
             debug: true,
         },
-        fps: {
-            max: 60,
-            min: 20,
-            target: 60,
-        }
     },
     scene: [ Load, Menu, Credits, Play, GameOver ]
 }
@@ -36,7 +31,8 @@ const tileSize = 35;
 // set UI sizes
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
-let gameSpeed = 8;
+
+let gameSpeed = 2;
 
 // reserve keyboard bindings
 let keySPACE;

@@ -88,41 +88,42 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.longRailing01);
 
         // add bonus
-        this.bonus01 = new Bonus(this, 0 - game.config.width, 300, 'coin_temp', 0, 30).setScale(2.0).setOrigin(0, 0);
+        //this.bonus01 = new Bonus(this, 0 - game.config.width, 300, 'coin_temp', 0, 30).setScale(2.0).setOrigin(0, 0);
+        this.bonus01 = this.physics.add.sprite(0, 0, 'coint_temp', 0);
         this.bonus01.showBody = true;
         this.bonus01.body.setAllowGravity(false);
-        this.bonus01.body.setCollideWorldBounds(false);
+        this.bonus01.body.setCollideWorldBounds(true);
         this.bonus01.body.immovable = true;
-        this.bonus01.body.onCollide = true;
-        this.physics.add.overlap(this.bonus01, this.playerOne, this.addPoints());
+        
 
         // add buyers
         this.PurpleGuy = new Buyer(this, 0, 400, 'PurpleGuy', 0, 30).setOrigin(0, 0);
         this.PurpleGuy.setOnWorldBounds = true;
         this.PurpleGuy.body.immovable = true;
         this.PurpleGuy.body.allowGravity = false;
-        this.PurpleGuy.body.setCollideWorldBounds(false);
+        this.PurpleGuy.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.PurpleGuy, this.playerOne, this.addPoints());
+        this.showBody
 
         this.RedGuy = new Buyer(this, 0, 400, 'RedGuy', 0, 30).setOrigin(0, 0);
         this.RedGuy.setOnWorldBounds = true;
         this.RedGuy.body.immovable = true;
         this.RedGuy.body.allowGravity = false;
-        this.RedGuy.body.setCollideWorldBounds(false);
+        this.RedGuy.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.RedGuy, this.playerOne, this.addPoints());
 
         this.GreenGuy = new Buyer(this, 0, 400, 'GreenGuy', 0, 30).setOrigin(0, 0);
         this.GreenGuy.setOnWorldBounds = true;
         this.GreenGuy.body.immovable = true;
         this.GreenGuy.body.allowGravity = false;
-        this.GreenGuy.body.setCollideWorldBounds(false);
+        this.GreenGuy.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.GreenGuy, this.playerOne, this.addPoints());
 
         this.BlueGuy = new Buyer(this, 0, 400, 'BlueGuy', 0, 30).setOrigin(0, 0);
         this.BlueGuy.setOnWorldBounds = true;
         this.BlueGuy.body.immovable = true;
         this.BlueGuy.body.allowGravity = false;
-        this.BlueGuy.body.setCollideWorldBounds(false);
+        this.BlueGuy.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.BlueGuy, this.playerOne, this.addPoints());
 
         // create burrito thought bubble
@@ -136,9 +137,6 @@ class Play extends Phaser.Scene {
 
         // game over Flag
         this.gameOver = false;
-
-        // reset gameSpeed
-        gameSpeed = 8;
 
         // set up speed-up timer
         // see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/scenes/Play.js
@@ -245,10 +243,6 @@ class Play extends Phaser.Scene {
         }
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1a58cb21f881c5c67281a21400fbec68e6a92688
     nextLevel() {
         gameSpeed += 0.5;
     }
@@ -327,8 +321,4 @@ class Play extends Phaser.Scene {
         this.bgm.mute = true;
         this.gameOverNoise.play();
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 1a58cb21f881c5c67281a21400fbec68e6a92688
 }
