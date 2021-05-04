@@ -333,8 +333,6 @@ class Play extends Phaser.Scene {
         this.bgm.mute = true;
         this.gameOverNoise.play();
     }
-<<<<<<< HEAD
-=======
 
     shortRailingCheck() {
         if(this.playerOne.body.touching.down && this.shortRailing01.body.touching.up){
@@ -357,5 +355,4 @@ class Play extends Phaser.Scene {
             this.gameOverNoise.play();
         }
     }
->>>>>>> d8298c06e41e71794e41809b5aad5750d92f3b09
 }
