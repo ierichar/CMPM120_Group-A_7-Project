@@ -33,6 +33,15 @@ class Play extends Phaser.Scene {
             this.gameFloor.add(groundTile);
         }
 
+
+        //slug with atlas
+        //Phaser.Animation.generateFrameNames('SlugAnimationPush', 0001, 0024);
+        //this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char');
+        //this.playerOne.animations.add('SlugAnimationPush', Phaser.Animation.generateFrameNames('SlugAnimationPush', 0001, 0024), 4, true);
+
+        //this.playerOne.animations.play('SlugAnimationPush');
+
+
         // initialize skater (scene, x, y, sprite, frame)
         this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char', 0);
         this.playerOne.setCollideWorldBounds(true);
@@ -298,12 +307,6 @@ class Play extends Phaser.Scene {
                 // add trashcan
                 this.trashcan01.reset();
                 break;
-        }
-    }
-
-    addBonus() {
-        if (!this.playerOne.hasItem) {
-            this.bonus01.reset();
         }
     }
 
