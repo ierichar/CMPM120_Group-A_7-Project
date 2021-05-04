@@ -15,8 +15,9 @@ class Load extends Phaser.Scene {
         this.load.image('EndScreen', './assets/GameOver.png');
         this.load.image('CreditScreen', './assets/Credits.png');
 
-        //this.load.atlas('SlugAtlas', './assets/SlugAtlas.png', './assets/SlugAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
-        this.load.atlas('AnimsAtlas', './assets/AnimsAtlas.png', './assets/AnimsAtlas.json');
+        this.load.atlas('PushAtlas', './assets/Push_Anims.png', './assets/Push_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //push atlas
+        this.load.atlas('JumpAtlas', './assets/Jump_Anims.png', './assets/Jump_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //jump atlas
+        this.load.atlas('HandAtlas', './assets/Hand_Anims.png', './assets/Hand_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //hand atlas
 
         this.load.image('PurpleGuy', './assets/PurpleGuy.png');
         this.load.image('RedGuy', './assets/RedGuy.png');
@@ -37,5 +38,9 @@ class Load extends Phaser.Scene {
 
     create() {
         this.scene.start("menuScene");
+
+        // var atlasTexture = this.textures.get('AnimsAtlas');
+
+        // var frames = atlasTexture.getFrameNames();
     }
 }

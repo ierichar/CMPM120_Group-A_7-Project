@@ -34,17 +34,50 @@ class Play extends Phaser.Scene {
         }
 
 
-        //slug with atlas
-        //Phaser.Animation.generateFrameNames('SlugAnimationPush', 0001, 0024);
-        //this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char');
-        //this.playerOne.animations.add('SlugAnimationPush', Phaser.Animation.generateFrameNames('SlugAnimationPush', 0001, 0024), 4, true);
+        //slug push config
+        this.anims.create({
+            key:'SlugPush', //key
+            repeat: -1,
+            frames: this.anims.generateFrameNames('PushAtlas', { //ref atlas name
+                end: 24,
+                first: 1
+            }),
+            duration: 600,
+            //framerate: 5
+        })
 
-        //this.playerOne.animations.play('SlugAnimationPush');
+        //slug jump config
+        this.anims.create({
+            key:'SlugJump', //key
+            //repeat: -1,
+            frames: this.anims.generateFrameNames('JumpAtlas', { //ref atlas name
+                end: 24,
+                first: 1
+            }),
+            duration: 350,
+            //framerate: 5
+        })
 
+        //slug jump config
+        this.anims.create({
+            key:'HandChomp', //key
+            repeat: -1,
+            frames: this.anims.generateFrameNames('HandAtlas', { //ref atlas name
+                end: 24,
+                first: 1
+            }),
+            duration: 550,
+            //framerate: 5
+        })
 
-        // initialize skater (scene, x, y, sprite, frame)
-        this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char', 0);
+        this.playerOne = this.physics.add.sprite(100, 500, 'PushAtlas', 0);
+        this.playerOne.anims.play('SlugPush');
         this.playerOne.setCollideWorldBounds(true);
+
+        //old skater initilization
+        // // initialize skater (scene, x, y, sprite, frame) 
+        // this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char', 0);
+        // this.playerOne.setCollideWorldBounds(true);
 
         // physics collider for skater to ground 
         this.physics.add.collider(this.playerOne, this.gameFloor);
@@ -61,6 +94,10 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+
+        this.SC_Hand = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'HandAtlas', 0);
+        this.SC_Hand.anims.play('HandChomp');
+        this.SC_Hand.setCollideWorldBounds(true);
 
         // add trashcan
         this.trashcan01 = new Spike(this, 0 - game.config.width, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
@@ -213,13 +250,14 @@ class Play extends Phaser.Scene {
 	    	this.jumps = 1;
 	    	this.jumping = false;
 	    } else {
-	    	//this.alien.anims.play('jump');
+	    	//this.playerOne.anims.play('SlugPush');
 	    }
 
         // allow steady velocity change up to a certain key down duration
         // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.DownDuration__anchor
         //thanks for the code nathan!
 	    if (this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(keySPACE, 200)) {
+            //this.playerOne.anims.play('SlugJump');
 	        this.playerOne.body.velocity.y = this.JUMP_VELOCITY;
 	        this.jumping = true;
 	        
@@ -228,6 +266,7 @@ class Play extends Phaser.Scene {
         // finally, letting go of the UP key subtracts a jump
         // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.UpDuration__anchor
 	    if (this.jumping && Phaser.Input.Keyboard.UpDuration(keySPACE)) {
+            this.playerOne.anims.play('SlugJump');
 	    	this.jumps--;
 	    	this.jumping = false;
 	    }
