@@ -32,7 +32,7 @@ const tileSize = 35;
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
-let gameSpeed = 2;
+let gameSpeed = 10;
 
 // reserve keyboard bindings
 let keySPACE;
@@ -41,4 +41,4 @@ let keyM;
 let keyC;
 
 // set global high score
-let score = -2000;
+let score = 0;

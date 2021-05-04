@@ -12,13 +12,15 @@ class Bonus extends Phaser.GameObjects.Sprite {
         // move bonus left
         this.x -= this.moveSpeed;
         // wrap around from left to right edge
-        if (this.x <= 0 - this.width - borderUISize) {
+        if (this.x <= 0 - this.width) {
             this.moveSpeed = 0;
+            this.setAlpha(0);
         }
     }
 
     reset() {
         this.x = game.config.width;
         this.moveSpeed = gameSpeed;
+        this.setAlpha(1);
     }
 }
