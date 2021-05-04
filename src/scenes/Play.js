@@ -68,6 +68,8 @@ class Play extends Phaser.Scene {
         this.spike01.body.immovable = true;
         this.spike01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.spike01, this.touchSpike, false, this);
+        //this.physics.world.on('overlap', function(this.playerOne, this.railing))
+        
 
         // add bird
         this.bird01 = new Spike(this, 0 - game.config.width, 200, 'spikes', 0, 30).setOrigin(0,0);
@@ -81,11 +83,12 @@ class Play extends Phaser.Scene {
         this.shortRailing01.body.immovable = true;
         this.shortRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.shortRailing01);
+        this.physics.add.collider(this.playerOne, this.shortRailing01, this.shortRailingCheck, false, this);
 
         this.longRailing01 = new Railing(this, 0 - game.config.width, 600, 'bench2', 0, 30).setOrigin(0, 1);
         this.longRailing01.body.immovable = true;
         this.longRailing01.body.allowGravity = false;
-        this.physics.add.collider(this.playerOne, this.longRailing01);
+        this.physics.add.collider(this.playerOne, this.longRailing01, this.longRailingCheck, false, this);
 
         // add bonus
         //this.bonus01 = new Bonus(this, 0 - game.config.width, 300, 'coin_temp', 0, 30).setScale(2.0).setOrigin(0, 0);
@@ -186,6 +189,7 @@ class Play extends Phaser.Scene {
 
         // game score
         this.displayScore = this.add.text(game.config.width- borderUISize*4 - borderPadding, borderUISize + borderPadding*2, score, playConfig);
+
     }
 
     update() {
@@ -223,9 +227,17 @@ class Play extends Phaser.Scene {
         // update score
         this.displayScore.text = score;
 
+        //if they're grinding on bench
+        if(this.playerOne.body.touching.down && (this.shortRailing01.body.touching.up || this.longRailing01.body.touching.up)){
+            score += 1;
+            
+        }
+
+
         if (this.gameOver == true) {
             this.scene.start("gameOverScene");
         }
+
 
         if (!this.gameOver) {
             this.playerOne.update();
@@ -321,4 +333,29 @@ class Play extends Phaser.Scene {
         this.bgm.mute = true;
         this.gameOverNoise.play();
     }
+<<<<<<< HEAD
+=======
+
+    shortRailingCheck() {
+        if(this.playerOne.body.touching.down && this.shortRailing01.body.touching.up){
+            score += 1;
+        }
+        else{
+            this.scene.start("gameOverScene");
+            this.bgm.mute = true;
+            this.gameOverNoise.play();
+        }
+    }
+
+    longRailingCheck(){
+        if(this.playerOne.body.touching.down && this.longRailing01.body.touching.up){
+            score += 1;
+        }
+        else{
+            this.scene.start("gameOverScene");
+            this.bgm.mute = true;
+            this.gameOverNoise.play();
+        }
+    }
+>>>>>>> d8298c06e41e71794e41809b5aad5750d92f3b09
 }
