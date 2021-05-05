@@ -96,7 +96,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.gameFloor);
 
         // add trashcan
-        this.trashcan01 = new Spike(this, 0 - game.config.width, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
+        this.trashcan01 = new Spike(this, 30 - game.config.width, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
         this.trashcan01.showBody = true;
         this.trashcan01.body.setSize(this.trashcan01.width*1,this.trashcan01.height*1);
         this.trashcan01.body.immovable = true;
@@ -142,9 +142,9 @@ class Play extends Phaser.Scene {
         })
 
         // introduce buyers
-        this.tutorialtext = this.add.text(150, 220, "Avoid incoming obstacles and don't run into the benches!\nCollect FOOD to give to hungry MONSTERS!\nKeep going for a high score!", playConfig);
-        this.time.delayedCall(5000, () => {
-            this.tutorialtext.destroy();
+        this.TutorialScript = this.add.tileSprite(20, 100 , 873, 232, 'TutorialScript').setOrigin(0, 0);
+        this.time.delayedCall(3000, () => {
+            this.TutorialScript.destroy();
         })
         // set up buyer loop
         this.time.delayedCall(20000, () => {
