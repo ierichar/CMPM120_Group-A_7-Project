@@ -166,7 +166,6 @@ class Play extends Phaser.Scene {
         // set up physics overlap
         // see: https://github.com/nathanaltice/BigBodies/blob/master/src/scenes/BodyBumps.js
         this.physics.world.on('overlap', ()=>{
-            console.log('overlapping...');
         });
 
         // define key
@@ -355,7 +354,6 @@ class Play extends Phaser.Scene {
 
     // called on overlap to give player item
     addItem() {
-        console.log('calling add item');
         hasItem = true;
     }
 
@@ -384,7 +382,6 @@ class Play extends Phaser.Scene {
     // called on overlap to give buyer item
     giveItem() {
         if (hasItem == true && !this.physics.world.overlap(this.playerOne, this.bonusGroup, this.addItem, null, this)) {
-            console.log('calling give item');
             score += 500;
             this.collectNoise.play();
             hasItem = false;
