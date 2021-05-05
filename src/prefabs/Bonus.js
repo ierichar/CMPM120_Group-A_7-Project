@@ -11,6 +11,7 @@ class Bonus extends Phaser.GameObjects.Sprite {
     update() {
         // move bonus left
         this.x -= this.moveSpeed;
+        //config.log('coin updating')
         // wrap around from left to right edge
         if (this.x <= 0 - this.width) {
             this.moveSpeed = 0;
