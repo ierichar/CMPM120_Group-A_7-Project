@@ -14,10 +14,12 @@ class Load extends Phaser.Scene {
         this.load.image('TitleScreen', './assets/TitleScreen.png');
         this.load.image('EndScreen', './assets/GameOver.png');
         this.load.image('CreditScreen', './assets/Credits.png');
+        this.load.image('LoadingScreen', './assets/LoadingScreen.png');
 
         this.load.atlas('PushAtlas', './assets/Push_Anims.png', './assets/Push_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //push atlas
         this.load.atlas('JumpAtlas', './assets/Jump_Anims.png', './assets/Jump_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //jump atlas
         this.load.atlas('HandAtlas', './assets/Hand_Anims.png', './assets/Hand_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //hand atlas
+        this.load.atlas('WheelAtlas', './assets/Wheel_Anims.png', './assets/Wheel_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //hand atlas
 
         this.load.image('PurpleGuy', './assets/PurpleGuy.png');
         this.load.image('RedGuy', './assets/RedGuy.png');

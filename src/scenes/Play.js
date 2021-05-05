@@ -58,7 +58,7 @@ class Play extends Phaser.Scene {
             //framerate: 5
         })
 
-        //slug jump config
+        //hand config
         this.anims.create({
             key:'HandChomp', //key
             repeat: -1,
