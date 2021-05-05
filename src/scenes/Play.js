@@ -9,6 +9,8 @@ class Play extends Phaser.Scene {
         this.Layer3 = this.add.tileSprite(0, 0, 960, 640, 'Layer3').setOrigin(0, 0);
         this.Layer2 = this.add.tileSprite(0, 0, 960, 640, 'Layer2').setOrigin(0, 0);
 
+        this.ScoreBoard = this.add.tileSprite(720, 20, 223, 58, 'ScoreBoard').setOrigin(0, 0);
+
         //set up background audio
         this.bgm = this.sound.add('bgm', { 
             mute: false,
@@ -80,10 +82,9 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.playerOne, this.gameFloor);
 
         let playConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Arial',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            color: '#FFFFFF',
             align: 'right',
             padding: {
                 top: 5,
@@ -192,7 +193,7 @@ class Play extends Phaser.Scene {
         this.JUMP_VELOCITY = -600;
 
         // game score
-        this.displayScore = this.add.text(game.config.width- borderUISize*4 - borderPadding, borderUISize + borderPadding*2, score, playConfig);
+        this.displayScore = this.add.text(880, 28, score, playConfig);
     }
 
     update() {
