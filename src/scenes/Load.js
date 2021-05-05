@@ -40,6 +40,7 @@ class Load extends Phaser.Scene {
         this.load.audio('bgm', './assets/endless-runner-background-music.mp3');
         this.load.audio('gameOverNoise', './assets/dying-sound.wav');
         this.load.audio('grind', './assets/grind-sound-effect.mp3');
+        this.load.audio('collect', './assets/collection-sound-effect.mp3');
     }
 
     create() {

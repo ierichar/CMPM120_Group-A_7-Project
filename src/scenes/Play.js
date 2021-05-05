@@ -33,6 +33,13 @@ class Play extends Phaser.Scene {
             rate: 3,
             loop: false
         });
+        
+        this.collectNoise = this.sound.add('collect', {
+            mute: false,
+            volume: .60,
+            rate: 1,
+            loop: false
+        });
 
         let playConfig = {
             fontFamily: 'Arial',
@@ -379,6 +386,7 @@ class Play extends Phaser.Scene {
         if (hasItem == true && !this.physics.world.overlap(this.playerOne, this.bonusGroup, this.addItem, null, this)) {
             console.log('calling give item');
             score += 500;
+            this.collectNoise.play();
             hasItem = false;
         }
     }
