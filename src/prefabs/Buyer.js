@@ -1,26 +1,27 @@
-class Buyer extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame) {
-        super(scene, x, y, texture, frame);
-
-        // add object to existing scene
+// Modification of Barrier Class
+// see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/prefabs/Barrier.js
+class Buyer extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, velocity, texture) {
+        super(scene, game.config.width, 450, texture);
+        // set up physics sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.moveSpeed = gameSpeed;
+        this.setVelocityX(velocity);
+        this.setImmovable();
+        this.body.allowGravity = false;
+        this.newBuyer = true;
     }
 
     update() {
-        // move buyer left
-        this.x -= this.moveSpeed;
-        // wrap around from left to right edge
-        if (this.x <= 0 - this.width) {
-            this.moveSpeed = 0;
-            this.setAlpha(0);
+        if (this.newBuyer && this.x < game.config.width/2) {
+            this.newBuyer = false;
+            // (recursively) call parent scene method from this context
+            this.scene.addBuyer(this.parent, this.velocity);
         }
-    }
 
-    reset() {
-        this.x = game.config.width;
-        this.moveSpeed = gameSpeed;
-        this.setAlpha(1);
+        // destroy buyer if it reaches the left edge of the screen
+        if (this.x < -this.width) {
+            this.destroy();
+        }
     }
 }

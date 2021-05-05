@@ -42,3 +42,4 @@ let keyC;
 
 // set global high score
 let score = 0;
+let hasItem = false;
