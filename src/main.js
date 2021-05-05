@@ -1,8 +1,19 @@
 /***
- * Group A_7 - Endless Runner
+ * Group A_7 (Ace Heaven) - Endless Runner
  * Authors: Ilda Lara Aguilar, Jackson Bazeal, Ian Richardson
  * CMPM 120/ARTG 120
  * Started: April 23rd, 2021
+ * Finished: May 5th, 2021
+ * Creative tilt (technical):
+ *    - Weighted jumping physics
+ *    - Grinding on benches gives bonus points
+ *    - Collecting food and giving them to monsters gives bonus points
+ *    - Using switch/case for random spawns as well as delayedCalls
+ * Creative tilt (visual):
+ *    - Santa Cruz skateboard monster vibes
+ *    - Jumping animations for skater
+ *    - Menu, Loading, Play, and Game Over have consistent themes
+ *      with respect to color, font, and art style
  */
 
 let config = {
