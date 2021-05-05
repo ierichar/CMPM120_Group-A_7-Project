@@ -27,6 +27,13 @@ class Play extends Phaser.Scene {
             loop: false
         });
 
+        this.grindNoise = this.sound.add('grind', {
+            mute: false,
+            volume: .50,
+            rate: 3,
+            loop: false
+        });
+
         let playConfig = {
             fontFamily: 'Arial',
             fontSize: '28px',
@@ -302,6 +309,7 @@ class Play extends Phaser.Scene {
     shortRailingCheck() {
         if(this.playerOne.body.touching.down && this.shortRailing01.body.touching.up){
             score += 1;
+            this.grindNoise.play();
         }
         else{
             this.scene.start("gameOverScene");
@@ -313,6 +321,7 @@ class Play extends Phaser.Scene {
     longRailingCheck(){
         if(this.playerOne.body.touching.down && this.longRailing01.body.touching.up){
             score += 1;
+            this.grindNoise.play();
         }
         else{
             this.scene.start("gameOverScene");
