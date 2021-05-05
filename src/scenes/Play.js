@@ -26,6 +26,19 @@ class Play extends Phaser.Scene {
             rate: 1,
             loop: false
         });
+
+        let playConfig = {
+            fontFamily: 'Arial',
+            fontSize: '28px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
         //adding tiled floor! (curtesy of Nathan Altice Movemnet Studies Repository)
         this.gameFloor =  this.add.group();
         for(let i = 0; i < game.config.width; i += tileSize) {
@@ -34,7 +47,6 @@ class Play extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.gameFloor.add(groundTile);
         }
-
 
         //slug push config
         this.anims.create({
@@ -73,25 +85,8 @@ class Play extends Phaser.Scene {
         this.playerOne.anims.play('SlugPush');
         this.playerOne.setCollideWorldBounds(true);
 
-        //old skater initilization
-        // // initialize skater (scene, x, y, sprite, frame) 
-        // this.playerOne = this.physics.add.sprite(100, 500, 'placeholder_char', 0);
-        // this.playerOne.setCollideWorldBounds(true);
-
         // physics collider for skater to ground 
         this.physics.add.collider(this.playerOne, this.gameFloor);
-
-        let playConfig = {
-            fontFamily: 'Arial',
-            fontSize: '28px',
-            color: '#FFFFFF',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
 
         // add trashcan
         this.trashcan01 = new Spike(this, 0 - game.config.width, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
@@ -111,7 +106,6 @@ class Play extends Phaser.Scene {
 
         // add bird
         this.bird01 = new Spike(this, 0 - game.config.width, 200, 'HandAtlas', 0, 30).setOrigin(0,0);
-        // this.bird01 = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'HandAtlas', 0);
         this.bird01.anims.play('HandChomp');
         this.bird01.showBody = true;
         this.bird01.body.setSize(this.bird01.width*1,this.bird01.height*1);
@@ -130,26 +124,33 @@ class Play extends Phaser.Scene {
         this.longRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.longRailing01, this.longRailingCheck, false, this);
 
-        // see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/scenes/Play.js 
         // set up buyer group
+        // see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/scenes/Play.js 
         this.buyerGroup = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
-        })
-        // set up buyer loop
-        this.time.delayedCall(30000, () => {
-            this.addBuyer();
         })
         // set up bonus group
         this.bonusGroup = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         })
+
+        // introduce buyers
+        this.tutorialtext = this.add.text(150, 220, "Avoid incoming obstacles and don't run into the benches!\nCollect FOOD to give to hungry MONSTERS!\nKeep going for a high score!", playConfig);
+        this.time.delayedCall(5000, () => {
+            this.tutorialtext.destroy();
+        })
         // set up buyer loop
         this.time.delayedCall(20000, () => {
+            this.addBuyer();
+        })
+        // introduce points
+        // set up buyer loop
+        this.time.delayedCall(15000, () => {
             this.addBonus();
         })
 
-        https://github.com/nathanaltice/BigBodies/blob/master/src/scenes/BodyBumps.js
         // set up physics overlap
+        // see: https://github.com/nathanaltice/BigBodies/blob/master/src/scenes/BodyBumps.js
         this.physics.world.on('overlap', ()=>{
             console.log('overlapping...');
         });
@@ -230,11 +231,12 @@ class Play extends Phaser.Scene {
         // update score
         this.displayScore.text = score;
 
-        //if they're grinding on bench
+        // if they're grinding on bench
         if(this.playerOne.body.touching.down && (this.shortRailing01.body.touching.up || this.longRailing01.body.touching.up)){
             score += 1;
         }
 
+        // don't know if this code breaks the game or not :) not about to find out
         if (this.gameOver == true) {
             this.scene.start("gameOverScene");
         }
@@ -251,6 +253,7 @@ class Play extends Phaser.Scene {
         }
     }
 
+    // increase game speed up to 12
     nextLevel() {
         if (gameSpeed <= 12) {
             gameSpeed += 1;
@@ -272,16 +275,6 @@ class Play extends Phaser.Scene {
         }
     }
 
-    addBonus() {
-        let bonus01 = new Bonus(this, 300, -300, 'coin_temp');
-        this.bonusGroup.add(bonus01);
-    }
-
-    addItem() {
-        console.log('calling add item');
-        hasItem = true;
-    }
-
     addObstacle() {
         let y = Phaser.Math.Between(0, 2);
         switch (y) {
@@ -297,36 +290,6 @@ class Play extends Phaser.Scene {
                 // add trashcan
                 this.trashcan01.reset();
                 break;
-        }
-    }
-
-    addBuyer() {
-        let x = Phaser.Math.Between(0, 3);
-        switch (x) {
-            case 0:
-                let buyer0 = new Buyer(this, 450, -300, 'PurpleGuy');
-                this.buyerGroup.add(buyer0);
-                break;
-            case 1:
-                let buyer1 = new Buyer(this, 450, -300, 'BlueGuy');
-                this.buyerGroup.add(buyer1);
-                break;
-            case 2:
-                let buyer2 = new Buyer(this, 450, -300, 'GreenGuy');
-                this.buyerGroup.add(buyer2);
-                break;
-            case 3:
-                let buyer3 = new Buyer(this, 450, -300, 'RedGuy');
-                this.buyerGroup.add(buyer3);
-                break;
-        }
-    }
-
-    giveItem() {
-        if (hasItem == true) {
-            console.log('calling give item');
-            score += 500;
-            hasItem = false;
         }
     }
 
@@ -355,6 +318,59 @@ class Play extends Phaser.Scene {
             this.scene.start("gameOverScene");
             this.bgm.mute = true;
             this.gameOverNoise.play();
+        }
+    }
+
+    addBonus() {
+        let z = Phaser.Math.Between(0, 1);
+        switch (z) {
+            case 0:
+                // add burrito
+                let burrito = new Bonus(this, 300, -300, 'burrito').setScale(0.5);
+                this.bonusGroup.add(burrito);
+                break;
+            case 1:
+                // add burger
+                let burger = new Bonus(this, 300, -300, 'burger').setScale(0.5);
+                this.bonusGroup.add(burger);
+                break;
+        }
+    }
+
+    // called on overlap to give player item
+    addItem() {
+        console.log('calling add item');
+        hasItem = true;
+    }
+
+    addBuyer() {
+        let x = Phaser.Math.Between(0, 3);
+        switch (x) {
+            case 0:
+                let buyer0 = new Buyer(this, 500, -300, 'PurpleGuy');
+                this.buyerGroup.add(buyer0);
+                break;
+            case 1:
+                let buyer1 = new Buyer(this, 500, -300, 'BlueGuy');
+                this.buyerGroup.add(buyer1);
+                break;
+            case 2:
+                let buyer2 = new Buyer(this, 500, -300, 'GreenGuy');
+                this.buyerGroup.add(buyer2);
+                break;
+            case 3:
+                let buyer3 = new Buyer(this, 500, -300, 'RedGuy');
+                this.buyerGroup.add(buyer3);
+                break;
+        }
+    }
+
+    // called on overlap to give buyer item
+    giveItem() {
+        if (hasItem == true && !this.physics.world.overlap(this.playerOne, this.bonusGroup, this.addItem, null, this)) {
+            console.log('calling give item');
+            score += 500;
+            hasItem = false;
         }
     }
 }
