@@ -15,7 +15,7 @@ class LoadScreen extends Phaser.Scene {
                 end: 24,
                 first: 1
             }),
-            //duration: 550,
+            duration: 10,
             //framerate: 5
         })
 
