@@ -326,12 +326,12 @@ class Play extends Phaser.Scene {
         switch (z) {
             case 0:
                 // add burrito
-                let burrito = new Bonus(this, 300, -300, 'burrito').setScale(0.5);
+                let burrito = new Bonus(this, 320, -300, 'burrito').setScale(0.5);
                 this.bonusGroup.add(burrito);
                 break;
             case 1:
                 // add burger
-                let burger = new Bonus(this, 300, -300, 'burger').setScale(0.5);
+                let burger = new Bonus(this, 320, -300, 'burger').setScale(0.5);
                 this.bonusGroup.add(burger);
                 break;
         }
@@ -347,19 +347,19 @@ class Play extends Phaser.Scene {
         let x = Phaser.Math.Between(0, 3);
         switch (x) {
             case 0:
-                let buyer0 = new Buyer(this, 500, -300, 'PurpleGuy');
+                let buyer0 = new Buyer(this, 550, -300, 'PurpleGuy');
                 this.buyerGroup.add(buyer0);
                 break;
             case 1:
-                let buyer1 = new Buyer(this, 500, -300, 'BlueGuy');
+                let buyer1 = new Buyer(this, 550, -300, 'BlueGuy');
                 this.buyerGroup.add(buyer1);
                 break;
             case 2:
-                let buyer2 = new Buyer(this, 500, -300, 'GreenGuy');
+                let buyer2 = new Buyer(this, 550, -300, 'GreenGuy');
                 this.buyerGroup.add(buyer2);
                 break;
             case 3:
-                let buyer3 = new Buyer(this, 500, -300, 'RedGuy');
+                let buyer3 = new Buyer(this, 550, -300, 'RedGuy');
                 this.buyerGroup.add(buyer3);
                 break;
         }
