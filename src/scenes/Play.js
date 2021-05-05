@@ -95,10 +95,6 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.SC_Hand = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'HandAtlas', 0);
-        this.SC_Hand.anims.play('HandChomp');
-        this.SC_Hand.setCollideWorldBounds(true);
-
         // add trashcan
         this.trashcan01 = new Spike(this, 0 - game.config.width, 605, 'trashcan', 0, 30).setOrigin(0.5, 1);
         this.trashcan01.showBody = true;
@@ -118,7 +114,9 @@ class Play extends Phaser.Scene {
         
 
         // add bird
-        this.bird01 = new Spike(this, 0 - game.config.width, 200, 'spikes', 0, 30).setOrigin(0,0);
+        this.bird01 = new Spike(this, 0 - game.config.width, 200, 'HandAtlas', 0, 30).setOrigin(0,0);
+        // this.bird01 = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'HandAtlas', 0);
+        this.bird01.anims.play('HandChomp');
         this.bird01.showBody = true;
         this.bird01.body.setSize(this.bird01.width*1,this.bird01.height*1);
         this.bird01.body.setAllowGravity(false);
