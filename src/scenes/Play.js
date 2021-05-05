@@ -40,10 +40,9 @@ class Play extends Phaser.Scene {
             repeat: -1,
             frames: this.anims.generateFrameNames('PushAtlas', { //ref atlas name
                 end: 24,
-                first: 1
+                start: 1
             }),
-            duration: 600,
-            //framerate: 5
+            framerate: 5
         })
 
         //slug jump config
@@ -52,10 +51,9 @@ class Play extends Phaser.Scene {
             //repeat: -1,
             frames: this.anims.generateFrameNames('JumpAtlas', { //ref atlas name
                 end: 24,
-                first: 1
+                start: 1
             }),
-            duration: 350,
-            //framerate: 5
+            framerate: 5
         })
 
         //hand config
@@ -64,10 +62,9 @@ class Play extends Phaser.Scene {
             repeat: -1,
             frames: this.anims.generateFrameNames('HandAtlas', { //ref atlas name
                 end: 24,
-                first: 1
+                start: 1
             }),
-            duration: 550,
-            //framerate: 5
+            framerate: 5
         })
 
         this.playerOne = this.physics.add.sprite(100, 500, 'PushAtlas', 0);
@@ -256,15 +253,14 @@ class Play extends Phaser.Scene {
 	    if (this.playerOne.isGrounded) {
 	    	this.jumps = 1;
 	    	this.jumping = false;
-	    } else {
-	    	//this.playerOne.anims.play('SlugPush');
+            this.playerOne.anims.play('SlugPush', true);
 	    }
 
         // allow steady velocity change up to a certain key down duration
         // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.DownDuration__anchor
         //thanks for the code nathan!
 	    if (this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(keySPACE, 200)) {
-            //this.playerOne.anims.play('SlugJump');
+            this.playerOne.anims.play('SlugJump', true);
 	        this.playerOne.body.velocity.y = this.JUMP_VELOCITY;
 	        this.jumping = true;
 	        
@@ -273,7 +269,6 @@ class Play extends Phaser.Scene {
         // finally, letting go of the UP key subtracts a jump
         // see: https://photonstorm.github.io/phaser3-docs/Phaser.Input.Keyboard.html#.UpDuration__anchor
 	    if (this.jumping && Phaser.Input.Keyboard.UpDuration(keySPACE)) {
-            this.playerOne.anims.play('SlugJump');
 	    	this.jumps--;
 	    	this.jumping = false;
 	    }

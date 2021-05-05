@@ -13,17 +13,15 @@ class LoadScreen extends Phaser.Scene {
             repeat: -1,
             frames: this.anims.generateFrameNames('WheelAtlas', { //ref atlas name
                 end: 24,
-                first: 1
+                start: 1
             }),
-            duration: 10,
-            //framerate: 5
+            framerate: 5
         })
 
         this.Wheel = this.add.sprite(470, 327, 'PushAtlas', 0);
         this.Wheel.anims.play('WheelSpin');
 
-        this.clock = this.time.delayedCall(7000, () => {
-            console.log('time workign after 3 seconds')
+        this.clock = this.time.delayedCall(4000, () => {
             this.scene.start('playScene');
         }, null, this);
 
