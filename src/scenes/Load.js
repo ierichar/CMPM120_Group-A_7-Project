@@ -17,6 +17,7 @@ class Load extends Phaser.Scene {
         this.load.image('CreditScreen', './assets/Credits.png');
         this.load.image('LoadingScreen', './assets/LoadingScreen.png');
         this.load.image('ScoreBoard', './assets/ScoreBoard.png');
+        this.load.image('TutorialScript', './assets/TutorialScript.png');
 
         this.load.atlas('PushAtlas', './assets/Push_Anims.png', './assets/Push_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //push atlas
         this.load.atlas('JumpAtlas', './assets/Jump_Anims.png', './assets/Jump_Anims.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH); //jump atlas
