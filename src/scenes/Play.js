@@ -70,7 +70,6 @@ class Play extends Phaser.Scene {
         this.playerOne = this.physics.add.sprite(100, 500, 'PushAtlas', 0);
         this.playerOne.anims.play('SlugPush');
         this.playerOne.setCollideWorldBounds(true);
-        this.playerOne.onOverlap = true;
 
         //old skater initilization
         // // initialize skater (scene, x, y, sprite, frame) 
@@ -108,8 +107,6 @@ class Play extends Phaser.Scene {
         this.spike01.body.immovable = true;
         this.spike01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.spike01, this.touchSpike, false, this);
-        //this.physics.world.on('overlap', function(this.playerOne, this.railing))
-        
 
         // add bird
         this.bird01 = new Spike(this, 0 - game.config.width, 200, 'HandAtlas', 0, 30).setOrigin(0,0);
@@ -132,65 +129,29 @@ class Play extends Phaser.Scene {
         this.longRailing01.body.allowGravity = false;
         this.physics.add.collider(this.playerOne, this.longRailing01, this.longRailingCheck, false, this);
 
-        // add bonus
-        this.bonus01 = new Bonus(this, 0 - game.config.width, 350, 'coin_temp', 0, 30).setScale(2.0).setOrigin(0, 0);
-        this.bonus01.showBody = true;
-        this.bonus01.body.setAllowGravity(false);
-        this.bonus01.body.immovable = true;
-        this.bonus01.body.onOverlap = true;
-        this.bonus01.body.setSize(this.bonus01.width*1,this.bonus01.height*1);
-
-        // // add buyers
-        // this.PurpleGuy = new Buyer(this, 0 - game.config.width - this.width, 450, 'PurpleGuy', 0, 0).setOrigin(0, 0);
-        // // this.PurpleGuy.setOnWorldBounds = true;
-        // this.PurpleGuy.body.immovable = true;
-        // this.PurpleGuy.body.allowGravity = false;
-        // this.PurpleGuy.body.onOverlap = true;
-        // this.PurpleGuy.body.setSize(this.PurpleGuy.width*1,this.PurpleGuy.height*1);
-
-        // this.RedGuy = new Buyer(this, 0 - game.config.width - this.width, 450, 'RedGuy', 0, 30).setOrigin(0, 0);
-        // // this.RedGuy.setOnWorldBounds = true;
-        // this.RedGuy.body.immovable = true;
-        // this.RedGuy.body.allowGravity = false;
-        // this.RedGuy.body.onOverlap = true;
-        // this.RedGuy.body.setSize(this.RedGuy.width*1,this.RedGuy.height*1);
-
-        // this.GreenGuy = new Buyer(this, 0 - game.config.width - this.width, 450, 'GreenGuy', 0, 30).setOrigin(0, 0);
-        // // this.GreenGuy.setOnWorldBounds = true;
-        // this.GreenGuy.body.immovable = true;
-        // this.GreenGuy.body.allowGravity = false;
-        // this.GreenGuy.body.onOverlap = true;
-        // this.GreenGuy.body.setSize(this.GreenGuy.width*1,this.GreenGuy.height*1);
-
-        // this.BlueGuy = new Buyer(this, 0 - game.config.width - this.width, 450, 'BlueGuy', 0, 30).setOrigin(0, 0);
-        // // this.BlueGuy.setOnWorldBounds = true;
-        // this.BlueGuy.body.immovable = true;
-        // this.BlueGuy.body.allowGravity = false;
-        // this.BlueGuy.body.onOverlap = true;
-        // this.BlueGuy.body.setSize(this.BlueGuy.width*1,this.BlueGuy.height*1);
-
         // see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/scenes/Play.js 
         // set up buyer group
         this.buyerGroup = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         })
         // set up buyer loop
-        this.time.delayedCall(15000, () => {
+        this.time.delayedCall(30000, () => {
             this.addBuyer();
         })
+        // set up bonus group
+        this.bonusGroup = this.add.group({
+            runChildUpdate: true    // make sure update runs on group children
+        })
+        // set up buyer loop
+        this.time.delayedCall(20000, () => {
+            this.addBonus();
+        })
 
-        this.physics.world.on('overlap', (obj1, obj2)=>{
-            if (obj1 == this.playerOne && obj2 == this.bonus01) {
-                console.log(`overlapping`);
-                this.addPoints();
-            }
+        https://github.com/nathanaltice/BigBodies/blob/master/src/scenes/BodyBumps.js
+        // set up physics overlap
+        this.physics.world.on('overlap', ()=>{
+            console.log('overlapping...');
         });
-
-        // // create burrito thought bubble
-        // this.BurritoBubble = new Buyer(this, 0, 480, 'BurritoBubble', 0, 30).setOrigin(0, 1);
-        // this.BurritoBubble.body.immovable = true;
-        // this.BurritoBubble.body.allowGravity = false;
-        // this.BurritoBubble.body.setCollideWorldBounds(false);
 
         // define key
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -208,6 +169,7 @@ class Play extends Phaser.Scene {
             loop: true,
             startAt: 600,
         });
+
         // set up bench loop
         this.benchTimer = this.time.addEvent({
             delay: 2500,
@@ -223,14 +185,6 @@ class Play extends Phaser.Scene {
             callbackScope: this,
             loop: true,
             startAt: 10,
-        });
-        // set up bonus loop
-        this.bonusTimer = this.time.addEvent({
-            delay: 3555,
-            callback: this.addBonus,
-            callbackScope: this,
-            loop: true,
-            startAt: 0,
         });
             
         // give world physics
@@ -263,7 +217,6 @@ class Play extends Phaser.Scene {
             this.playerOne.anims.play('SlugJump', true);
 	        this.playerOne.body.velocity.y = this.JUMP_VELOCITY;
 	        this.jumping = true;
-	        
 	    }
 
         // finally, letting go of the UP key subtracts a jump
@@ -285,11 +238,8 @@ class Play extends Phaser.Scene {
             this.scene.start("gameOverScene");
         }
 
-        this.physics.overlap(this.playerOne, this.bonus01);
-        // this.physics.overlap(this.playerOne, this.PurpleGuy);
-        // this.physics.overlap(this.playerOne, this.RedGuy);
-        // this.physics.overlap(this.playerOne, this.GreenGuy);
-        // this.physics.overlap(this.playerOne, this.BlueGuy);
+        this.physics.world.overlap(this.playerOne, this.bonusGroup, this.addItem, null, this);
+        this.physics.world.overlap(this.playerOne, this.buyerGroup, this.giveItem, null, this);
 
         if (!this.gameOver) {
             this.spike01.update();
@@ -297,12 +247,6 @@ class Play extends Phaser.Scene {
             this.trashcan01.update();
             this.shortRailing01.update();
             this.longRailing01.update();
-            // this.bonus01.update();
-            // this.PurpleGuy.update();
-            // this.RedGuy.update();
-            // this.GreenGuy.update();
-            // this.BlueGuy.update();
-            // this.BurritoBubble.update();
         }
     }
 
@@ -310,15 +254,6 @@ class Play extends Phaser.Scene {
         if (gameSpeed <= 12) {
             gameSpeed += 1;
         }
-    }
-    giveItem() {
-        hasItem = true;
-    }
-
-    addPoints() {
-        // score += 5;
-        hasItem = false;
-        this.BurritoBubble.setAlpha(0);
     }
 
     addBench() {
@@ -337,10 +272,13 @@ class Play extends Phaser.Scene {
     }
 
     addBonus() {
-        if (hasItem == false) {
-            this.bonus01.reset();
-            this.bonus01.setAlpha(1);
-        }
+        let bonus01 = new Bonus(this, 300, -300, 'coin_temp');
+        this.bonusGroup.add(bonus01);
+    }
+
+    addItem() {
+        console.log('calling add item');
+        hasItem = true;
     }
 
     addObstacle() {
@@ -361,48 +299,33 @@ class Play extends Phaser.Scene {
         }
     }
 
-    // addBuyer() {
-    //     let x = Phaser.Math.Between(0, 3);
-    //     switch (x) {
-    //         case 0:
-    //             this.BurritoBubble.setAlpha(1);
-    //             this.PurpleGuy.reset();
-    //             this.BurritoBubble.reset();
-    //             break;
-    //         case 1:
-    //             this.RedGuy.reset();
-    //             this.BurritoBubble.reset();
-    //             break;
-    //         case 2:
-    //             this.GreenGuy.reset();
-    //             this.BurritoBubble.reset();
-    //             break;
-    //         case 3:
-    //             this.BlueGuy.reset();
-    //             this.BurritoBubble.reset();
-    //             break;
-    //     }
-    // }
-
     addBuyer() {
         let x = Phaser.Math.Between(0, 3);
         switch (x) {
             case 0:
-                let buyer0 = new Buyer(this, -400, 'PurpleGuy');
+                let buyer0 = new Buyer(this, 450, -300, 'PurpleGuy');
                 this.buyerGroup.add(buyer0);
                 break;
             case 1:
-                let buyer1 = new Buyer(this, -400, 'BlueGuy');
+                let buyer1 = new Buyer(this, 450, -300, 'BlueGuy');
                 this.buyerGroup.add(buyer1);
                 break;
             case 2:
-                let buyer2 = new Buyer(this, -400, 'GreenGuy');
+                let buyer2 = new Buyer(this, 450, -300, 'GreenGuy');
                 this.buyerGroup.add(buyer2);
                 break;
             case 3:
-                let buyer3 = new Buyer(this, -400, 'RedGuy');
+                let buyer3 = new Buyer(this, 450, -300, 'RedGuy');
                 this.buyerGroup.add(buyer3);
                 break;
+        }
+    }
+
+    giveItem() {
+        if (hasItem == true) {
+            console.log('calling give item');
+            score += 500;
+            hasItem = false;
         }
     }
 

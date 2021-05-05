@@ -1,26 +1,29 @@
-class Bonus extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame) {
-        super(scene, x, y, texture, frame);
-
-        // add object to existing scene
+// Modification of Barrier Class
+// see: https://github.com/nathanaltice/PaddleParkourP3/blob/master/src/prefabs/Barrier.js
+class Bonus extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, y, velocity, texture) {
+        super(scene, game.config.width, y, texture);
+        // set up physics sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.moveSpeed = gameSpeed;
+        scene.physics.onOverlap = true;
+        scene.physics.onCollide = true;
+        scene.physics.onWorldBounds = true;
+        this.setVelocityX(velocity);
+        this.setImmovable();
+        this.body.allowGravity = false;
+        this.newBonus = true;
     }
 
     update() {
-        // move bonus left
-        this.x -= this.moveSpeed;
-        // wrap around from left to right edge
-        if (this.x <= 0 - this.width) {
-            this.moveSpeed = 0;
-            this.setAlpha(0);
+        if (this.newBonus && this.x < game.config.width/2) {
+            this.newBonus = false;
+            // (recursively) call parent scene method from this context
+            this.scene.addBonus(this.parent, this.velocity);
         }
-    }
-
-    reset() {
-        this.x = game.config.width;
-        this.moveSpeed = gameSpeed;
-        this.setAlpha(1);
+        // destroy buyer if it reaches the left edge of the screen
+        if (this.x < -this.width) {
+            this.destroy();
+        }
     }
 }
